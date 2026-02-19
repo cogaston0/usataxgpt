@@ -1,14 +1,130 @@
-/* GLOBAL BACKGROUND */
-
-body {
+/* RESET */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* ===== GLOBAL BACKGROUND ===== */
+body {
+    font-family: 'Segoe UI', sans-serif;
 
     background:
-    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-    url('krsna.png') no-repeat center center fixed;
+    linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.22)),
+    url("krsna.png") no-repeat center center fixed;
 
     background-size: cover;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    color: white;
+}
+
+/* ===== NAVIGATION ===== */
+header {
+    background: rgba(10, 25, 60, 0.85);
+    backdrop-filter: blur(6px);
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+nav a {
+    color: #f2c94c;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+/* ===== INTERACTION BOX (GLASS EFFECT) ===== */
+.chat-container,
+.login-container,
+.register-container {
+    background: rgba(20, 40, 80, 0.55);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 28px;
+    width: 320px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+}
+
+/* Center pages that use forms */
+.center-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
+}
+
+/* ===== TITLES ===== */
+h2 {
+    color: #f2c94c;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* ===== FORM INPUTS ===== */
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 11px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+}
+
+/* ===== BUTTON ===== */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2f4ea2;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #3b5cc4;
+}
+
+/* ===== LINKS ===== */
+.create-account,
+.login-link a {
+    display: block;
+    margin-top: 18px;
+    color: #f2c94c;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.create-account:hover,
+.login-link a:hover {
+    color: #ffffff;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    margin-top: 25px;
+    font-size: 12px;
+    text-align: center;
+    opacity: 0.7;
 }
