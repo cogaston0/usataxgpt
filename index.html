@@ -8,229 +8,205 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html, body{
-    height:100%;
+/* BODY BACKGROUND IMAGE */
+body {
+    font-family: 'Cinzel', serif;
+    min-height: 100vh;
+    background: url("krsna.png") no-repeat center center fixed;
+    background-size: cover;
+    color: #f3e8c8;
 }
 
-/* ===== BACKGROUND IMAGE (CORRECTED TO PNG) ===== */
-body{
-    font-family:'Cinzel', serif;
-
-    background-image:url("krsna.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-
-    min-height:100vh;
-    color:#f4e8c1;
+/* ===== HEADER (NO BLUE BAR) ===== */
+.site-header {
+    background: transparent;
+    padding: 25px 50px;
+    position: relative;
+    z-index: 10;
 }
 
-/* ===== HEADER ===== */
-header{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:#0f1b3d;
-    padding:20px 40px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:15px;
+/* Logo */
+.logo img {
+    height: 75px;
+    width: auto;
+    display: block;
 }
 
-.logo-circle{
-    width:45px;
-    height:45px;
-    background:#c9a84c;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    color:#0f1b3d;
+/* Navigation */
+.main-nav a {
+    text-decoration: none;
+    margin-left: 35px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #f3e8c8;
+    transition: 0.3s ease;
 }
 
-.logo-text h1{
-    font-size:20px;
-    color:#f4e8c1;
+.main-nav a:hover {
+    color: #ffffff;
 }
 
-.logo-text span{
-    font-size:12px;
-    letter-spacing:2px;
-    color:#d8c89c;
+/* ===== HERO AREA ===== */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 80px 80px;
 }
 
-nav a{
-    margin-left:30px;
-    text-decoration:none;
-    color:#f4e8c1;
-    letter-spacing:2px;
-    font-size:14px;
+/* ===== DRAGGABLE CARD ===== */
+.intake-card {
+    width: 420px;
+    padding: 35px;
+    background: rgba(30, 36, 48, 0.75); /* transparent */
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    cursor: move;
+    position: relative;
 }
 
-nav a:hover{
-    color:#ffffff;
+.intake-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
-/* ===== GLASS PANEL ===== */
-.info-panel{
-    width:380px;
-    padding:30px;
-    border-radius:15px;
-    background:rgba(30,40,70,0.55);
-    backdrop-filter:blur(8px);
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    position:absolute;
-    top:220px;
-    left:100px;
-    cursor:move;
+.secure {
+    color: #38d39f;
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
-.info-panel h2{
-    margin-bottom:15px;
+.intake-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
 }
 
-.secure{
-    margin-bottom:20px;
-    color:#34d399;
-    font-size:14px;
+/* Input area */
+.input-area {
+    display: flex;
+    margin-top: 15px;
 }
 
-.secure::before{
-    content:"● ";
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px 0 0 6px;
 }
 
-.info-panel p{
-    margin-bottom:15px;
-    line-height:1.6;
+.input-area button {
+    padding: 10px 18px;
+    border: none;
+    background: #294c8e;
+    color: white;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
 }
 
-.chat-box{
-    margin-top:20px;
-    display:flex;
-}
-
-.chat-box input{
-    flex:1;
-    padding:12px;
-    border:none;
-    border-radius:8px 0 0 8px;
-    outline:none;
-}
-
-.chat-box button{
-    padding:12px 20px;
-    border:none;
-    background:#1e3a8a;
-    color:#f4e8c1;
-    border-radius:0 8px 8px 0;
-    cursor:pointer;
-}
-
-.chat-box button:hover{
-    background:#2746a3;
+.input-area button:hover {
+    background: #3a66c1;
 }
 
 /* ===== FOOTER ===== */
-footer{
-    position:absolute;
-    bottom:20px;
-    width:100%;
-    text-align:center;
-    color:#d8c89c;
-    font-size:13px;
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 13px;
+    color: #e6d6a8;
 }
 
-footer a{
-    color:#f4e8c1;
-    text-decoration:none;
+footer a {
+    color: #e6d6a8;
+    text-decoration: none;
 }
 
-footer a:hover{
-    color:white;
-}
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">
-<div class="logo-circle">CO</div>
-<div class="logo-text">
-<h1>Carlos Olivencia</h1>
-<span>Tax & Financial Services</span>
-</div>
-</div>
+<header class="site-header">
+    <div class="header-container">
 
-<nav>
-<a href="#">HOME</a>
-<a href="#">SERVICES</a>
-<a href="#">ABOUT</a>
-<a href="#">CONTACT</a>
-<a href="login.html">LOGIN</a>
-</nav>
+        <div class="logo">
+            <img src="logo.png" alt="Carlos Olivencia Logo">
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="#">Services</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="login.html">Login</a>
+        </nav>
+
+    </div>
 </header>
 
-<div class="info-panel">
-<h2>Carlos Olivencia — Tax Intake</h2>
-<div class="secure">Secure Connection Active</div>
+<section class="hero">
+    <div class="intake-card" id="draggableCard">
+        <h2>Carlos Olivencia — Tax Intake</h2>
+        <div class="secure">● Secure Connection Active</div>
 
-<p>Welcome to Carlos Olivencia Tax Services.</p>
+        <p>Welcome to Carlos Olivencia Tax Services.</p>
+        <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
+        <p>Are you ready to start your 2025 tax intake?</p>
 
-<p>
-I will guide you step-by-step through your tax intake.
-This information is encrypted and secure.
-</p>
-
-<p>Are you ready to start your 2025 tax intake?</p>
-
-<div class="chat-box">
-<input type="text" placeholder="Type your response...">
-<button>Send</button>
-</div>
-</div>
+        <div class="input-area">
+            <input type="text" placeholder="Type your response...">
+            <button>Send</button>
+        </div>
+    </div>
+</section>
 
 <footer>
-© 2025 Carlos Olivencia Tax & Financial Services |
-<a href="#">Privacy Policy</a> |
-<a href="#">Terms of Service</a>
+    © 2025 Carlos Olivencia Tax & Financial Services |
+    <a href="#">Privacy Policy</a> |
+    <a href="#">Terms of Service</a>
 </footer>
 
 <script>
-const panel=document.querySelector(".info-panel");
-let isDragging=false;
-let offsetX,offsetY;
 
-panel.addEventListener("mousedown",(e)=>{
-isDragging=true;
-offsetX=e.clientX-panel.offsetLeft;
-offsetY=e.clientY-panel.offsetTop;
+/* DRAG FUNCTION */
+const card = document.getElementById("draggableCard");
+
+let isDragging = false;
+let offsetX, offsetY;
+
+card.addEventListener("mousedown", function(e) {
+    isDragging = true;
+    offsetX = e.clientX - card.offsetLeft;
+    offsetY = e.clientY - card.offsetTop;
 });
 
-document.addEventListener("mousemove",(e)=>{
-if(!isDragging)return;
-panel.style.left=(e.clientX-offsetX)+"px";
-panel.style.top=(e.clientY-offsetY)+"px";
+document.addEventListener("mousemove", function(e) {
+    if (isDragging) {
+        card.style.position = "absolute";
+        card.style.left = (e.clientX - offsetX) + "px";
+        card.style.top = (e.clientY - offsetY) + "px";
+    }
 });
 
-document.addEventListener("mouseup",()=>{
-isDragging=false;
+document.addEventListener("mouseup", function() {
+    isDragging = false;
 });
+
 </script>
 
 </body>
