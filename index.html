@@ -8,154 +8,160 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* ===== FORCE FULL BACKGROUND ===== */
-body {
-    font-family: 'Cinzel', serif;
-    background-image: url("./krsna.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    min-height: 100vh;
-    color: #f4e8c1;
+html, body{
+    height:100%;
+}
+
+/* ===== BACKGROUND IMAGE (CORRECTED TO PNG) ===== */
+body{
+    font-family:'Cinzel', serif;
+
+    background-image:url("krsna.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    min-height:100vh;
+    color:#f4e8c1;
 }
 
 /* ===== HEADER ===== */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #0f1b3d;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:#0f1b3d;
+    padding:20px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
 }
 
-.logo-circle {
-    width: 45px;
-    height: 45px;
-    background: #c9a84c;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #0f1b3d;
+.logo-circle{
+    width:45px;
+    height:45px;
+    background:#c9a84c;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#0f1b3d;
 }
 
-.logo-text h1 {
-    font-size: 20px;
-    color: #f4e8c1;
+.logo-text h1{
+    font-size:20px;
+    color:#f4e8c1;
 }
 
-.logo-text span {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #d8c89c;
+.logo-text span{
+    font-size:12px;
+    letter-spacing:2px;
+    color:#d8c89c;
 }
 
-nav a {
-    margin-left: 30px;
-    text-decoration: none;
-    color: #f4e8c1;
-    letter-spacing: 2px;
-    font-size: 14px;
+nav a{
+    margin-left:30px;
+    text-decoration:none;
+    color:#f4e8c1;
+    letter-spacing:2px;
+    font-size:14px;
 }
 
-nav a:hover {
-    color: #ffffff;
+nav a:hover{
+    color:#ffffff;
 }
 
 /* ===== GLASS PANEL ===== */
-.info-panel {
-    width: 380px;
-    padding: 30px;
-    border-radius: 15px;
-    background: rgba(30, 40, 70, 0.55);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    position: absolute;
-    top: 220px;
-    left: 100px;
-    cursor: move;
+.info-panel{
+    width:380px;
+    padding:30px;
+    border-radius:15px;
+    background:rgba(30,40,70,0.55);
+    backdrop-filter:blur(8px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    position:absolute;
+    top:220px;
+    left:100px;
+    cursor:move;
 }
 
-.info-panel h2 {
-    margin-bottom: 15px;
+.info-panel h2{
+    margin-bottom:15px;
 }
 
-.secure {
-    margin-bottom: 20px;
-    color: #34d399;
-    font-size: 14px;
+.secure{
+    margin-bottom:20px;
+    color:#34d399;
+    font-size:14px;
 }
 
-.secure::before {
-    content: "● ";
+.secure::before{
+    content:"● ";
 }
 
-.info-panel p {
-    margin-bottom: 15px;
-    line-height: 1.6;
+.info-panel p{
+    margin-bottom:15px;
+    line-height:1.6;
 }
 
-.chat-box {
-    margin-top: 20px;
-    display: flex;
+.chat-box{
+    margin-top:20px;
+    display:flex;
 }
 
-.chat-box input {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px 0 0 8px;
-    outline: none;
+.chat-box input{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:8px 0 0 8px;
+    outline:none;
 }
 
-.chat-box button {
-    padding: 12px 20px;
-    border: none;
-    background: #1e3a8a;
-    color: #f4e8c1;
-    border-radius: 0 8px 8px 0;
-    cursor: pointer;
+.chat-box button{
+    padding:12px 20px;
+    border:none;
+    background:#1e3a8a;
+    color:#f4e8c1;
+    border-radius:0 8px 8px 0;
+    cursor:pointer;
 }
 
-.chat-box button:hover {
-    background: #2746a3;
+.chat-box button:hover{
+    background:#2746a3;
 }
 
 /* ===== FOOTER ===== */
-footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
-    color: #d8c89c;
-    font-size: 13px;
+footer{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    color:#d8c89c;
+    font-size:13px;
 }
 
-footer a {
-    color: #f4e8c1;
-    text-decoration: none;
+footer a{
+    color:#f4e8c1;
+    text-decoration:none;
 }
 
-footer a:hover {
-    color: white;
+footer a:hover{
+    color:white;
 }
 </style>
 </head>
@@ -163,67 +169,67 @@ footer a:hover {
 <body>
 
 <header>
-    <div class="logo">
-        <div class="logo-circle">CO</div>
-        <div class="logo-text">
-            <h1>Carlos Olivencia</h1>
-            <span>Tax & Financial Services</span>
-        </div>
-    </div>
+<div class="logo">
+<div class="logo-circle">CO</div>
+<div class="logo-text">
+<h1>Carlos Olivencia</h1>
+<span>Tax & Financial Services</span>
+</div>
+</div>
 
-    <nav>
-        <a href="#">HOME</a>
-        <a href="#">SERVICES</a>
-        <a href="#">ABOUT</a>
-        <a href="#">CONTACT</a>
-        <a href="login.html">LOGIN</a>
-    </nav>
+<nav>
+<a href="#">HOME</a>
+<a href="#">SERVICES</a>
+<a href="#">ABOUT</a>
+<a href="#">CONTACT</a>
+<a href="login.html">LOGIN</a>
+</nav>
 </header>
 
 <div class="info-panel">
-    <h2>Carlos Olivencia — Tax Intake</h2>
-    <div class="secure">Secure Connection Active</div>
+<h2>Carlos Olivencia — Tax Intake</h2>
+<div class="secure">Secure Connection Active</div>
 
-    <p>Welcome to Carlos Olivencia Tax Services.</p>
+<p>Welcome to Carlos Olivencia Tax Services.</p>
 
-    <p>
-        I will guide you step-by-step through your tax intake.
-        This information is encrypted and secure.
-    </p>
+<p>
+I will guide you step-by-step through your tax intake.
+This information is encrypted and secure.
+</p>
 
-    <p>Are you ready to start your 2025 tax intake?</p>
+<p>Are you ready to start your 2025 tax intake?</p>
 
-    <div class="chat-box">
-        <input type="text" placeholder="Type your response...">
-        <button>Send</button>
-    </div>
+<div class="chat-box">
+<input type="text" placeholder="Type your response...">
+<button>Send</button>
+</div>
 </div>
 
 <footer>
-    © 2025 Carlos Olivencia Tax & Financial Services |
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Terms of Service</a>
+© 2025 Carlos Olivencia Tax & Financial Services |
+<a href="#">Privacy Policy</a> |
+<a href="#">Terms of Service</a>
 </footer>
 
 <script>
-const panel = document.querySelector(".info-panel");
-let isDragging = false;
-let offsetX, offsetY;
+const panel=document.querySelector(".info-panel");
+let isDragging=false;
+let offsetX,offsetY;
 
-panel.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    offsetX = e.clientX - panel.offsetLeft;
-    offsetY = e.clientY - panel.offsetTop;
+panel.addEventListener("mousedown",(e)=>{
+isDragging=true;
+offsetX=e.clientX-panel.offsetLeft;
+offsetY=e.clientY-panel.offsetTop;
 });
 
-document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    panel.style.left = (e.clientX - offsetX) + "px";
-    panel.style.top = (e.clientY - offsetY) + "px";
+document.addEventListener("mousemove",(e)=>{
+if(!isDragging)return;
+panel.style.left=(e.clientX-offsetX)+"px";
+panel.style.top=(e.clientY-offsetY)+"px";
 });
 
-document.addEventListener("mouseup", () => {
-    isDragging = false;
+document.addEventListener("mouseup",()=>{
+isDragging=false;
 });
 </script>
 
