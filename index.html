@@ -19,10 +19,10 @@
 
 body {
     font-family: 'Cinzel', serif;
-    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-                url('krsna.jpg') center/cover no-repeat fixed;
+    background: url('krsna.jpg') center center / cover no-repeat fixed;
     min-height: 100vh;
     color: #f4e8c1;
+    overflow-x: hidden;
 }
 
 /* ================= HEADER ================= */
@@ -37,7 +37,6 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 .logo {
@@ -58,10 +57,6 @@ header {
     color: #0f1b3d;
 }
 
-.logo-text {
-    line-height: 1.2;
-}
-
 .logo-text h1 {
     font-size: 20px;
     color: #f4e8c1;
@@ -72,8 +67,6 @@ header {
     letter-spacing: 2px;
     color: #d8c89c;
 }
-
-/* ================= NAVIGATION ================= */
 
 nav a {
     margin-left: 30px;
@@ -87,24 +80,19 @@ nav a:hover {
     color: #ffffff;
 }
 
-/* ================= MAIN SECTION ================= */
-
-.main-content {
-    padding-top: 140px;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 80px;
-}
-
 /* ================= GLASS PANEL ================= */
 
 .info-panel {
     width: 380px;
     padding: 30px;
     border-radius: 15px;
-    background: rgba(10,20,50,0.55);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background: rgba(30, 40, 70, 0.55);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 220px;
+    left: 100px;
+    cursor: move;
 }
 
 .info-panel h2 {
@@ -126,8 +114,6 @@ nav a:hover {
     margin-bottom: 15px;
     line-height: 1.6;
 }
-
-/* ================= INPUT ================= */
 
 .chat-box {
     margin-top: 20px;
@@ -158,8 +144,10 @@ nav a:hover {
 /* ================= FOOTER ================= */
 
 footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
     text-align: center;
-    padding: 40px 0;
     color: #d8c89c;
     font-size: 13px;
 }
@@ -196,24 +184,22 @@ footer a:hover {
     </nav>
 </header>
 
-<div class="main-content">
-    <div class="info-panel">
-        <h2>Carlos Olivencia — Tax Intake</h2>
-        <div class="secure">Secure Connection Active</div>
+<div class="info-panel">
+    <h2>Carlos Olivencia — Tax Intake</h2>
+    <div class="secure">Secure Connection Active</div>
 
-        <p>Welcome to Carlos Olivencia Tax Services.</p>
+    <p>Welcome to Carlos Olivencia Tax Services.</p>
 
-        <p>
-            I will guide you step-by-step through your tax intake.
-            This information is encrypted and secure.
-        </p>
+    <p>
+        I will guide you step-by-step through your tax intake.
+        This information is encrypted and secure.
+    </p>
 
-        <p>Are you ready to start your 2025 tax intake?</p>
+    <p>Are you ready to start your 2025 tax intake?</p>
 
-        <div class="chat-box">
-            <input type="text" placeholder="Type your response...">
-            <button>Send</button>
-        </div>
+    <div class="chat-box">
+        <input type="text" placeholder="Type your response...">
+        <button>Send</button>
     </div>
 </div>
 
@@ -223,6 +209,28 @@ footer a:hover {
     <a href="#">Terms of Service</a>
 </footer>
 
+<script>
+const panel = document.querySelector(".info-panel");
+
+let isDragging = false;
+let offsetX, offsetY;
+
+panel.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - panel.offsetLeft;
+    offsetY = e.clientY - panel.offsetTop;
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    panel.style.left = (e.clientX - offsetX) + "px";
+    panel.style.top = (e.clientY - offsetY) + "px";
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
+});
+</script>
+
 </body>
 </html>
-
