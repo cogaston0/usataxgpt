@@ -3,595 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>accServices - Tax Division</title>
-    <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="style.css">
+<title>Carlos Olivencia — Tax Division</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
 
-    background:
-    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-    url("krsna.png") no-repeat center center fixed;
-
-    background-size: cover;
-    min-height: 100vh;
-}
-
-} 
-:root {
-    --gold: #c9a84c;
-    --gold-light: #e8d48b;
-    --deep-blue: #0f1b3d;
-    --royal-blue: #1e3a8a;
-    --dark-bg: #0a0e1a;
-    --card-bg: #111827;
-    --text-light: #e2e8f0;
-    --text-muted: #94a3b8;
-    --accent-green: #34d399;
-}
+/* ================= BACKGROUND ================= */
 
 body {
-    font-family: 'Lora', serif;
-    background-color: var(--dark-bg);
-    color: var(--text-light);
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+                url('krsna.jpg') center/cover no-repeat fixed;
     min-height: 100vh;
-    overflow-x: hidden;
+    color: #f4e8c1;
 }
 
-/* ─── HEADER ─── */
+/* ================= HEADER ================= */
+
 header {
-    background: linear-gradient(135deg, var(--deep-blue) 0%, #162252 50%, var(--deep-blue) 100%);
-    border-bottom: 2px solid var(--gold);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #0f1b3d;
     padding: 20px 40px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    position: relative;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
-header::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
-}
-
-.logo-area {
+.logo {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.logo-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+.logo-circle {
+    width: 45px;
+    height: 45px;
+    background: #c9a84c;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 22px;
-    color: var(--deep-blue);
+    font-weight: bold;
+    color: #0f1b3d;
+}
+
+.logo-text {
+    line-height: 1.2;
 }
 
 .logo-text h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.5rem;
-    color: var(--gold);
+    font-size: 20px;
+    color: #f4e8c1;
+}
+
+.logo-text span {
+    font-size: 12px;
     letter-spacing: 2px;
+    color: #d8c89c;
 }
 
-.logo-text p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-}
-
-nav {
-    display: flex;
-    gap: 30px;
-}
+/* ================= NAVIGATION ================= */
 
 nav a {
-    color: var(--text-muted);
+    margin-left: 30px;
     text-decoration: none;
-    font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: color 0.3s;
+    color: #f4e8c1;
+    letter-spacing: 2px;
+    font-size: 14px;
 }
 
 nav a:hover {
-    color: var(--gold);
+    color: #ffffff;
 }
 
-/* ─── HERO SECTION ─── */
-.hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: auto;
-    overflow: hidden;
-}
+/* ================= MAIN SECTION ================= */
 
-.hero-image-wrapper {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.hero-image-wrapper img {
-    width: 100%;
-    height: auto;
-    max-height: 800px;
-    display: block;
-    filter: brightness(0.6);
-}
-
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(10, 14, 26, 0.3) 0%,
-        rgba(10, 14, 26, 0.1) 40%,
-        rgba(10, 14, 26, 0.6) 80%,
-        rgba(10, 14, 26, 1) 100%
-    );
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px;
-}
-
-.hero-overlay h2 {
-    font-family: 'Cinzel', serif;
-    font-size: 2.8rem;
-    color: var(--gold);
-    letter-spacing: 4px;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
-}
-
-.hero-overlay p {
-    font-size: 1.15rem;
-    color: var(--text-light);
-    max-width: 600px;
-    line-height: 1.8;
-    text-shadow: 0 1px 10px rgba(0,0,0,0.9);
-}
-
-/* ─── MAIN CONTENT ─── */
 .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0px 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    align-items: start;
+    padding-top: 140px;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 80px;
 }
 
-/* ─── INFO PANEL ─── */
-.info-panel h3 {
-    font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
-    color: var(--gold);
+/* ================= GLASS PANEL ================= */
+
+.info-panel {
+    width: 380px;
+    padding: 30px;
+    border-radius: 15px;
+    background: rgba(10,20,50,0.55);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.info-panel h2 {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.secure {
     margin-bottom: 20px;
-    letter-spacing: 1.5px;
+    color: #34d399;
+    font-size: 14px;
+}
+
+.secure::before {
+    content: "● ";
 }
 
 .info-panel p {
-    color: var(--text-muted);
-    line-height: 1.8;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.features {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 30px;
-}
-
-.feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 18px;
-    background: var(--card-bg);
-    border-radius: 10px;
-    border: 1px solid rgba(201, 168, 76, 0.15);
-    transition: border-color 0.3s, transform 0.3s;
-}
-
-.feature-item:hover {
-    border-color: rgba(201, 168, 76, 0.4);
-    transform: translateX(5px);
-}
-
-.feature-icon {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.feature-text h4 {
-    font-family: 'Cinzel', serif;
-    color: var(--text-light);
-    font-size: 0.95rem;
-    margin-bottom: 4px;
-}
-
-.feature-text p {
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    margin: 0;
-    line-height: 1.5;
-}
-
-/* ─── CHAT CONTAINER ─── */
-.chat-container {
-    background: var(--card-bg);
-    border-radius: 14px;
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    top: 0px;
-}
-
-.chat-header {
-    background: linear-gradient(135deg, var(--deep-blue), var(--royal-blue));
-    color: var(--gold);
-    padding: 18px 22px;
-    font-family: 'Cinzel', serif;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 1.5px;
-    text-align: center;
-    border-bottom: 1px solid var(--gold);
-}
-
-.chat-header span {
-    display: block;
-    font-family: 'Lora', serif;
-    font-size: 0.72rem;
-    color: var(--accent-green);
-    margin-top: 5px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 400;
-}
-
-.chat-body {
-    padding: 20px;
-    height: 380px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--royal-blue) transparent;
-}
-
-.chat-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.chat-body::-webkit-scrollbar-thumb {
-    background: var(--royal-blue);
-    border-radius: 3px;
-}
-
-.message {
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    margin-bottom: 15px;
     line-height: 1.6;
-    animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* ================= INPUT ================= */
 
-.assistant {
-    background: rgba(30, 58, 138, 0.25);
-    border: 1px solid rgba(30, 58, 138, 0.4);
-    color: var(--text-light);
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-}
-
-.user {
-    background: rgba(201, 168, 76, 0.12);
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    color: var(--gold-light);
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-}
-
-.chat-input {
+.chat-box {
+    margin-top: 20px;
     display: flex;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
-    background: rgba(17, 24, 39, 0.8);
 }
 
-.chat-input input {
+.chat-box input {
     flex: 1;
-    padding: 15px 18px;
+    padding: 12px;
     border: none;
+    border-radius: 8px 0 0 8px;
     outline: none;
-    background: transparent;
-    color: var(--text-light);
-    font-family: 'Lora', serif;
-    font-size: 0.9rem;
 }
 
-.chat-input input::placeholder {
-    color: var(--text-muted);
-}
-
-.chat-input button {
-    padding: 15px 24px;
-    background: linear-gradient(135deg, var(--royal-blue), var(--deep-blue));
-    color: var(--gold);
+.chat-box button {
+    padding: 12px 20px;
     border: none;
+    background: #1e3a8a;
+    color: #f4e8c1;
+    border-radius: 0 8px 8px 0;
     cursor: pointer;
-    font-family: 'Cinzel', serif;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    transition: background 0.3s;
 }
 
-.chat-input button:hover {
-    background: linear-gradient(135deg, #2548a8, var(--royal-blue));
+.chat-box button:hover {
+    background: #2746a3;
 }
 
-/* ─── FOOTER ─── */
+/* ================= FOOTER ================= */
+
 footer {
     text-align: center;
-    padding: 30px;
-    border-top: 1px solid rgba(201, 168, 76, 0.1);
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
+    padding: 40px 0;
+    color: #d8c89c;
+    font-size: 13px;
 }
 
 footer a {
-    color: var(--gold);
+    color: #f4e8c1;
     text-decoration: none;
 }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 900px) {
-    .main-content {
-        grid-template-columns: 1fr;
-    }
-    .hero-overlay h2 {
-        font-size: 1.8rem;
-    }
-    header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    nav {
-        gap: 15px;
-    }
+footer a:hover {
+    color: white;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ─── HEADER ─── -->
 <header>
-    <div class="logo-area">
-        <div class="logo-icon">CO</div>
+    <div class="logo">
+        <div class="logo-circle">CO</div>
         <div class="logo-text">
             <h1>Carlos Olivencia</h1>
-            <p>Tax &amp; Financial Services</p>
+            <span>Tax & Financial Services</span>
         </div>
     </div>
+
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-        <a href="login.html" class="login-btn">Login</a>
+        <a href="#">HOME</a>
+        <a href="#">SERVICES</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+        <a href="login.html">LOGIN</a>
     </nav>
 </header>
 
-<!-- ─── HERO WITH IMAGE ─── -->
-<section class="hero">
-    <div class="hero-image-wrapper">
-
-        <div class="hero-overlay">
-            <h2></h2>
-            <p></p>
-        </div>
-    </div>
-</section>
-
-<!-- ─── MAIN: INFO + CHAT ─── -->
 <div class="main-content">
-</div>
+    <div class="info-panel">
+        <h2>Carlos Olivencia — Tax Intake</h2>
+        <div class="secure">Secure Connection Active</div>
 
-    <!-- Right: Chat -->
-    <div class="chat-container">
-        <div class="chat-header">
-            Carlos Olivencia — Tax Intake
-            <span>🟢 Secure Connection Active</span>
-        </div>
+        <p>Welcome to Carlos Olivencia Tax Services.</p>
 
-        <div class="chat-body" id="chatBody">
-            <div class="message assistant">
-                Welcome to Carlos Olivencia Tax Services.<br><br>
-                I will guide you step-by-step through your tax intake.
-                This information is encrypted and secure.<br><br>
-                Are you ready to start your 2025 tax intake?
-            </div>
-        </div>
+        <p>
+            I will guide you step-by-step through your tax intake.
+            This information is encrypted and secure.
+        </p>
 
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Type your response...">
-            <button onclick="sendMessage()">Send</button>
+        <p>Are you ready to start your 2025 tax intake?</p>
+
+        <div class="chat-box">
+            <input type="text" placeholder="Type your response...">
+            <button>Send</button>
         </div>
     </div>
 </div>
 
-<!-- ─── FOOTER ─── -->
 <footer>
-    &copy; 2025 Carlos Olivencia Tax &amp; Financial Services &nbsp;|&nbsp; 
-    <a href="#">Privacy Policy</a> &nbsp;|&nbsp; 
+    © 2025 Carlos Olivencia Tax & Financial Services |
+    <a href="#">Privacy Policy</a> |
     <a href="#">Terms of Service</a>
 </footer>
 
-<!-- ─── CHAT LOGIC ─── -->
-<script>
-let step = 0;
-
-document.getElementById("userInput").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        sendMessage();
-    }
-});
-
-function sendMessage() {
-    const input = document.getElementById("userInput");
-    const chatBody = document.getElementById("chatBody");
-    let userText = input.value;
-
-    if (!userText || userText.trim() === "") return;
-
-    userText = userText.trim();
-
-    const userMessage = document.createElement("div");
-    userMessage.className = "message user";
-    userMessage.textContent = userText;
-    chatBody.appendChild(userMessage);
-
-    input.value = "";
-
-    setTimeout(() => {
-        const assistantMessage = document.createElement("div");
-        assistantMessage.className = "message assistant";
-
-        const normalized = userText.toLowerCase();
-        const ssnRegex = /^\d{9}$/;
-
-        if (step === 0) {
-            if (normalized === "yes" || normalized === "y") {
-                assistantMessage.innerHTML =
-                    "Let's begin with your identification information.<br><br>" +
-                    "What is your full legal name as shown on your Social Security card?";
-                step = 1;
-            } else {
-                assistantMessage.textContent =
-                    "Please type Yes or Y when you are ready to begin.";
-            }
-
-        } else if (step === 1) {
-            assistantMessage.innerHTML =
-                "Thank you.<br><br>" +
-                "What is your Social Security Number?<br>" +
-                "Please enter exactly 9 digits with no spaces or dashes.";
-            step = 2;
-
-        } else if (step === 2) {
-            if (!ssnRegex.test(userText)) {
-                assistantMessage.innerHTML =
-                    "That is not a valid Social Security Number.<br>" +
-                    "Please enter exactly 9 digits with no spaces or dashes.";
-            } else {
-                assistantMessage.innerHTML =
-                    "Thank you. I have recorded your Social Security Number.<br><br>" +
-                    "Is this correct?";
-                step = 3;
-            }
-
-        } else if (step === 3) {
-            if (normalized === "yes" || normalized === "y") {
-                assistantMessage.innerHTML =
-                    "Great.<br><br>" +
-                    "What is your date of birth?<br>" +
-                    "Please use the format MM/DD/YYYY.";
-                step = 4;
-            } else {
-                assistantMessage.textContent =
-                    "Please confirm by typing Yes or Y.";
-            }
-
-        } else if (step === 4) {
-            assistantMessage.innerHTML =
-                "Thank you.<br><br>" +
-                "What is your current mailing address?<br>" +
-                "Please include street, city, state, and ZIP code.";
-            step = 5;
-
-        } else if (step === 5) {
-            assistantMessage.innerHTML =
-                "Got it.<br><br>" +
-                "What is your filing status?<br>" +
-                "Options: Single, Married Filing Jointly, Married Filing Separately, Head of Household, Qualifying Widow(er).";
-            step = 6;
-
-        } else if (step === 6) {
-            assistantMessage.innerHTML =
-                "Thank you.<br><br>" +
-                "How many dependents do you have?<br>" +
-                "Enter 0 if none.";
-            step = 7;
-
-        } else if (step === 7) {
-            assistantMessage.innerHTML =
-                "Thank you for completing the intake process!<br><br>" +
-                "A tax professional from Carlos Olivencia Tax Services will review your information and contact you shortly.<br><br>" +
-                "🙏 Have a blessed day.";
-            step = 8;
-        }
-
-        chatBody.appendChild(assistantMessage);
-        chatBody.scrollTop = chatBody.scrollHeight;
-
-    }, 400);
-}
-</script>
-
 </body>
 </html>
+
