@@ -1,13 +1,13 @@
 /* ============================================
    CARLOS OLIVENCIA TAX SERVICES
    template.js — Shared Header & Footer
-   
+
    HOW TO USE ON ANY NEW PAGE:
-   1. Add this to your <head>:
+   1. Add to <head>:
         <link rel="stylesheet" href="style.css">
-   2. Add this anywhere before </body>:
+   2. Add before </body>:
         <script src="template.js"></script>
-   3. Add data-page="pagename" to your <body> tag
+   3. Add data-page="pagename" to <body> tag
       to highlight the correct nav link, e.g.:
         <body data-page="services">
    ============================================ */
@@ -15,7 +15,6 @@
 (function () {
 
   // ── NAV LINKS ─────────────────────────────
-  // To add a new page to the nav, just add it here.
   const navLinks = [
     { label: "Home",     href: "index.html" },
     { label: "Services", href: "services.html" },
@@ -30,7 +29,7 @@
   const navHTML = navLinks.map(link => {
     const isActive = link.label.toLowerCase() === currentPage.toLowerCase();
     return `<a href="${link.href}"${isActive ? ' class="active"' : ''}>${link.label}</a>`;
-  }).join("\n            ");
+  }).join("\n      ");
 
   const headerHTML = `
 <header class="site-header">
@@ -38,7 +37,10 @@
     <div class="logo">
       <img src="logo.png" alt="Carlos Olivencia Logo">
     </div>
-    <nav class="main-nav">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="mainNav">
       ${navHTML}
     </nav>
   </div>
@@ -54,9 +56,24 @@
 </footer>`;
 
   // ── INJECT ────────────────────────────────
-  // Insert header at the very top of <body>
   document.body.insertAdjacentHTML("afterbegin", headerHTML);
-  // Insert footer at the very bottom of <body>
   document.body.insertAdjacentHTML("beforeend", footerHTML);
+
+  // ── HAMBURGER TOGGLE ──────────────────────
+  const btn = document.getElementById("hamburger");
+  const nav = document.getElementById("mainNav");
+
+  btn.addEventListener("click", function () {
+    btn.classList.toggle("open");
+    nav.classList.toggle("open");
+  });
+
+  // Close menu when a link is tapped
+  nav.querySelectorAll("a").forEach(function(link) {
+    link.addEventListener("click", function () {
+      btn.classList.remove("open");
+      nav.classList.remove("open");
+    });
+  });
 
 })();
