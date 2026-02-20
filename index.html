@@ -8,10 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<!-- data-page tells template.js which nav link to highlight -->
 <body data-page="home">
-
-  <!-- ═══ UNIQUE PAGE CONTENT BELOW ═══ -->
 
   <section class="hero">
     <div class="intake-card" id="draggableCard">
@@ -27,36 +24,49 @@
     </div>
   </section>
 
-  <!-- ═══ END UNIQUE CONTENT ═══ -->
-
-  <!-- Drag script (only needed on this page) -->
   <script>
     const card = document.getElementById("draggableCard");
     const hero = card.parentElement;
     let isDragging = false, offsetX, offsetY;
 
-    card.addEventListener("mousedown", function(e) {
+    function startDrag(x, y) {
       isDragging = true;
-      offsetX = e.clientX - card.offsetLeft;
-      offsetY = e.clientY - card.offsetTop;
-      e.preventDefault();
-    });
+      offsetX = x - card.offsetLeft;
+      offsetY = y - card.offsetTop;
+    }
 
-    document.addEventListener("mousemove", function(e) {
+    function moveDrag(x, y) {
       if (!isDragging) return;
-      let newLeft = e.clientX - offsetX;
-      let newTop  = e.clientY - offsetY;
       const heroRect = hero.getBoundingClientRect();
-      newLeft = Math.max(0, Math.min(newLeft, heroRect.width  - card.offsetWidth));
-      newTop  = Math.max(0, Math.min(newTop,  heroRect.height - card.offsetHeight));
+      let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
+      let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
       card.style.left = newLeft + "px";
       card.style.top  = newTop  + "px";
-    });
+    }
 
-    document.addEventListener("mouseup", () => isDragging = false);
+    function endDrag() { isDragging = false; }
+
+    // Mouse events
+    card.addEventListener("mousedown",  e => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
+    document.addEventListener("mousemove", e => moveDrag(e.clientX, e.clientY));
+    document.addEventListener("mouseup",   endDrag);
+
+    // Touch events
+    card.addEventListener("touchstart", e => {
+      const t = e.touches[0];
+      startDrag(t.clientX, t.clientY);
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener("touchmove", e => {
+      const t = e.touches[0];
+      moveDrag(t.clientX, t.clientY);
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener("touchend", endDrag);
   </script>
 
-  <!-- Shared template (header + footer) — always last -->
   <script src="template.js"></script>
 
 </body>
