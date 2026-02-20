@@ -1,3 +1,8 @@
+/* ============================================
+   CARLOS OLIVENCIA TAX SERVICES
+   Shared Stylesheet — All Pages
+   ============================================ */
+
 /* RESET */
 * {
     margin: 0;
@@ -5,71 +10,140 @@
     box-sizing: border-box;
 }
 
-/* ===== GLOBAL BACKGROUND ===== */
+/* BODY */
 body {
-    font-family: 'Segoe UI', sans-serif;
-
-    background:
-    linear-gradient(rgba(0,0,0,0.22), rgba(0,0,0,0.22)),
-    url("krsna.png") no-repeat center center fixed;
-
-    background-size: cover;
+    font-family: 'Cinzel', serif;
     min-height: 100vh;
-    color: white;
+    display: flex;
+    flex-direction: column;
+    background: url('krsna.png') no-repeat center center fixed;
+    background-size: cover;
+    color: #f3e8c8;
 }
 
-/* ===== NAVIGATION ===== */
-header {
-    background: rgba(10, 25, 60, 0.85);
-    backdrop-filter: blur(6px);
-    padding: 18px 40px;
+/* ===== HEADER ===== */
+.site-header {
+    background: transparent;
+    padding: 25px 35px;
+    position: relative;
+    z-index: 10;
+}
+
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-nav a {
-    color: #f2c94c;
+.logo img {
+    height: 105px;
+    width: auto;
+    display: block;
+}
+
+.main-nav a {
     text-decoration: none;
-    margin-left: 25px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    margin-left: 35px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #f3e8c8;
+    transition: 0.3s ease;
 }
 
-nav a:hover {
+.main-nav a:hover {
     color: #ffffff;
 }
 
-/* ===== INTERACTION BOX (GLASS EFFECT) ===== */
-.chat-container,
-.login-container,
-.register-container {
-    background: rgba(20, 40, 80, 0.55);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 16px;
-    padding: 28px;
-    width: 320px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+/* Active nav link — add class="active" to the <a> on each page */
+.main-nav a.active {
+    color: #f2c94c;
+    border-bottom: 1px solid #f2c94c;
+    padding-bottom: 2px;
 }
 
-/* Center pages that use forms */
-.center-page {
+/* ===== PAGE BODY (wraps unique content) ===== */
+.page-body {
+    flex: 1;
+    position: relative;
+}
+
+/* ===== HERO VARIANT (index page) ===== */
+.hero {
+    flex: 1;
+    position: relative;
+    min-height: 480px;
+    padding: 80px 80px;
+}
+
+/* ===== CENTERED VARIANT (login, register, forms) ===== */
+.page-body.centered {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 85vh;
+    padding: 40px 20px;
 }
 
-/* ===== TITLES ===== */
-h2 {
-    color: #f2c94c;
-    margin-bottom: 25px;
+/* ===== STANDARD CONTENT VARIANT (services, about, etc.) ===== */
+.page-body.standard {
+    padding: 60px 80px;
+}
+
+/* ===== CARD (glass effect — used on intake, login, register) ===== */
+.card {
+    background: rgba(30, 36, 48, 0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    padding: 35px;
+}
+
+/* Narrow card for forms */
+.card.narrow {
+    width: 380px;
+}
+
+/* ===== INTAKE / DRAGGABLE CARD ===== */
+.intake-card {
+    width: 420px;
+    padding: 35px;
+    background: rgba(30, 36, 48, 0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    cursor: move;
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    z-index: 20;
+    user-select: none;
+}
+
+.intake-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.secure {
+    color: #38d39f;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.intake-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+/* ===== FORM ELEMENTS ===== */
+.form-title {
     text-align: center;
+    margin-bottom: 25px;
+    color: #f2c94c;
+    font-size: 22px;
+    letter-spacing: 2px;
 }
 
-/* ===== FORM INPUTS ===== */
 .input-group {
     margin-bottom: 18px;
 }
@@ -77,54 +151,114 @@ h2 {
 .input-group label {
     display: block;
     margin-bottom: 6px;
-    font-size: 14px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #f3e8c8;
 }
 
 .input-group input {
     width: 100%;
-    padding: 11px;
+    padding: 10px;
     border-radius: 6px;
     border: none;
+    font-family: 'Cinzel', serif;
     font-size: 14px;
 }
 
-/* ===== BUTTON ===== */
-button {
+.input-area {
+    display: flex;
+    margin-top: 15px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px 0 0 6px;
+    font-family: 'Cinzel', serif;
+}
+
+.input-area button {
+    padding: 10px 18px;
+    border: none;
+    background: #294c8e;
+    color: white;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    transition: 0.3s ease;
+}
+
+.input-area button:hover {
+    background: #3a66c1;
+}
+
+/* Primary button */
+.btn-primary {
     width: 100%;
     padding: 12px;
-    background: #2f4ea2;
+    background: #294c8e;
     border: none;
     border-radius: 6px;
     color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 1px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: 0.3s ease;
 }
 
-button:hover {
-    background: #3b5cc4;
+.btn-primary:hover {
+    background: #3a66c1;
 }
 
-/* ===== LINKS ===== */
-.create-account,
-.login-link a {
-    display: block;
-    margin-top: 18px;
-    color: #f2c94c;
+/* Form footer link */
+.form-link {
     text-align: center;
-    text-decoration: none;
-    font-size: 14px;
+    margin-top: 18px;
+    font-size: 13px;
 }
 
-.create-account:hover,
-.login-link a:hover {
+.form-link a {
+    color: #f2c94c;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.form-link a:hover {
     color: #ffffff;
 }
 
 /* ===== FOOTER ===== */
-.footer {
-    margin-top: 25px;
-    font-size: 12px;
+.site-footer {
     text-align: center;
-    opacity: 0.7;
+    padding: 30px;
+    font-size: 13px;
+    color: #e6d6a8;
+    position: relative;
+    z-index: 10;
+}
+
+.site-footer a {
+    color: #e6d6a8;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #ffffff;
+}
+
+/* ===== HEADINGS ===== */
+h1, h2, h3 {
+    font-family: 'Cinzel', serif;
+    color: #f2c94c;
+}
+
+/* ===== GOLD DIVIDER ===== */
+.divider {
+    border: none;
+    border-top: 1px solid rgba(242, 201, 76, 0.3);
+    margin: 30px 0;
 }
