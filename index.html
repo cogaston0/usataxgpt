@@ -16,16 +16,18 @@
     box-sizing: border-box;
 }
 
-/* BODY BACKGROUND IMAGE */
+/* BODY — flex column so footer is always pushed to bottom */
 body {
     font-family: 'Cinzel', serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background: url("krsna.png") no-repeat center center fixed;
     background-size: cover;
     color: #f3e8c8;
 }
 
-/* ===== HEADER (NO BLUE BAR) ===== */
+/* ===== HEADER ===== */
 .site-header {
     background: transparent;
     padding: 25px 35px;
@@ -61,23 +63,29 @@ body {
 }
 
 /* ===== HERO AREA ===== */
+/* flex: 1 makes this section grow to fill all space between header and footer */
 .hero {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    flex: 1;
+    position: relative;        /* card uses position:absolute relative to this */
+    min-height: 480px;         /* guarantees space even when card is dragged away */
     padding: 80px 80px;
 }
 
 /* ===== DRAGGABLE CARD ===== */
+/* Start absolutely positioned so pulling it around never affects layout */
 .intake-card {
     width: 420px;
     padding: 35px;
-    background: rgba(30, 36, 48, 0.75); /* transparent */
+    background: rgba(30, 36, 48, 0.75);
     backdrop-filter: blur(6px);
     border-radius: 15px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     cursor: move;
-    position: relative;
+    position: absolute;        /* out of flow from the start — no reflow on drag */
+    top: 80px;
+    left: 80px;
+    z-index: 20;
+    user-select: none;
 }
 
 .intake-card h2 {
@@ -123,12 +131,14 @@ body {
     background: #3a66c1;
 }
 
-/* ===== FOOTER ===== */
+/* ===== FOOTER — always at bottom, never jumps ===== */
 footer {
     text-align: center;
     padding: 30px;
     font-size: 13px;
     color: #e6d6a8;
+    position: relative;
+    z-index: 10;
 }
 
 footer a {
@@ -185,6 +195,7 @@ footer a {
 
 /* DRAG FUNCTION */
 const card = document.getElementById("draggableCard");
+const hero = card.parentElement;
 
 let isDragging = false;
 let offsetX, offsetY;
@@ -193,14 +204,25 @@ card.addEventListener("mousedown", function(e) {
     isDragging = true;
     offsetX = e.clientX - card.offsetLeft;
     offsetY = e.clientY - card.offsetTop;
+    e.preventDefault();
 });
 
 document.addEventListener("mousemove", function(e) {
-    if (isDragging) {
-        card.style.position = "absolute";
-        card.style.left = (e.clientX - offsetX) + "px";
-        card.style.top = (e.clientY - offsetY) + "px";
-    }
+    if (!isDragging) return;
+
+    let newLeft = e.clientX - offsetX;
+    let newTop  = e.clientY - offsetY;
+
+    // Keep card inside the hero bounds
+    const heroRect = hero.getBoundingClientRect();
+    const maxLeft  = heroRect.width  - card.offsetWidth;
+    const maxTop   = heroRect.height - card.offsetHeight;
+
+    newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+    newTop  = Math.max(0, Math.min(newTop,  maxTop));
+
+    card.style.left = newLeft + "px";
+    card.style.top  = newTop  + "px";
 });
 
 document.addEventListener("mouseup", function() {
