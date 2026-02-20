@@ -1,235 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carlos Olivencia — Tax Division</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* BODY — flex column so footer is always pushed to bottom */
-body {
-    font-family: 'Cinzel', serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: url("krsna.png") no-repeat center center fixed;
-    background-size: cover;
-    color: #f3e8c8;
-}
-
-/* ===== HEADER ===== */
-.site-header {
-    background: transparent;
-    padding: 25px 35px;
-    position: relative;
-    z-index: 10;
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Logo */
-.logo img {
-    height: 105px;
-    width: auto;
-    display: block;
-}
-
-/* Navigation */
-.main-nav a {
-    text-decoration: none;
-    margin-left: 35px;
-    font-size: 16px;
-    letter-spacing: 2px;
-    color: #f3e8c8;
-    transition: 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: #ffffff;
-}
-
-/* ===== HERO AREA ===== */
-/* flex: 1 makes this section grow to fill all space between header and footer */
-.hero {
-    flex: 1;
-    position: relative;        /* card uses position:absolute relative to this */
-    min-height: 480px;         /* guarantees space even when card is dragged away */
-    padding: 80px 80px;
-}
-
-/* ===== DRAGGABLE CARD ===== */
-/* Start absolutely positioned so pulling it around never affects layout */
-.intake-card {
-    width: 420px;
-    padding: 35px;
-    background: rgba(30, 36, 48, 0.75);
-    backdrop-filter: blur(6px);
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    cursor: move;
-    position: absolute;        /* out of flow from the start — no reflow on drag */
-    top: 80px;
-    left: 80px;
-    z-index: 20;
-    user-select: none;
-}
-
-.intake-card h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-.secure {
-    color: #38d39f;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.intake-card p {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 18px;
-}
-
-/* Input area */
-.input-area {
-    display: flex;
-    margin-top: 15px;
-}
-
-.input-area input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 6px 0 0 6px;
-}
-
-.input-area button {
-    padding: 10px 18px;
-    border: none;
-    background: #294c8e;
-    color: white;
-    border-radius: 0 6px 6px 0;
-    cursor: pointer;
-}
-
-.input-area button:hover {
-    background: #3a66c1;
-}
-
-/* ===== FOOTER — always at bottom, never jumps ===== */
-footer {
-    text-align: center;
-    padding: 30px;
-    font-size: 13px;
-    color: #e6d6a8;
-    position: relative;
-    z-index: 10;
-}
-
-footer a {
-    color: #e6d6a8;
-    text-decoration: none;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos Olivencia — Tax Division</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<!-- data-page tells template.js which nav link to highlight -->
+<body data-page="home">
 
-<header class="site-header">
-    <div class="header-container">
+  <!-- ═══ UNIQUE PAGE CONTENT BELOW ═══ -->
 
-        <div class="logo">
-            <img src="logo.png" alt="Carlos Olivencia Logo">
-        </div>
-
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="#">Services</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="login.html">Login</a>
-        </nav>
-
-    </div>
-</header>
-
-<section class="hero">
+  <section class="hero">
     <div class="intake-card" id="draggableCard">
-        <h2>Carlos Olivencia — Tax Intake</h2>
-        <div class="secure">● Secure Connection Active</div>
-
-        <p>Welcome to Carlos Olivencia Tax Services.</p>
-        <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
-        <p>Are you ready to start your 2025 tax intake?</p>
-
-        <div class="input-area">
-            <input type="text" placeholder="Type your response...">
-            <button>Send</button>
-        </div>
+      <h2>Carlos Olivencia — Tax Intake</h2>
+      <div class="secure">● Secure Connection Active</div>
+      <p>Welcome to Carlos Olivencia Tax Services.</p>
+      <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
+      <p>Are you ready to start your 2025 tax intake?</p>
+      <div class="input-area">
+        <input type="text" placeholder="Type your response...">
+        <button>Send</button>
+      </div>
     </div>
-</section>
+  </section>
 
-<footer>
-    © 2025 Carlos Olivencia Tax & Financial Services |
-    <a href="#">Privacy Policy</a> |
-    <a href="#">Terms of Service</a>
-</footer>
+  <!-- ═══ END UNIQUE CONTENT ═══ -->
 
-<script>
+  <!-- Drag script (only needed on this page) -->
+  <script>
+    const card = document.getElementById("draggableCard");
+    const hero = card.parentElement;
+    let isDragging = false, offsetX, offsetY;
 
-/* DRAG FUNCTION */
-const card = document.getElementById("draggableCard");
-const hero = card.parentElement;
+    card.addEventListener("mousedown", function(e) {
+      isDragging = true;
+      offsetX = e.clientX - card.offsetLeft;
+      offsetY = e.clientY - card.offsetTop;
+      e.preventDefault();
+    });
 
-let isDragging = false;
-let offsetX, offsetY;
+    document.addEventListener("mousemove", function(e) {
+      if (!isDragging) return;
+      let newLeft = e.clientX - offsetX;
+      let newTop  = e.clientY - offsetY;
+      const heroRect = hero.getBoundingClientRect();
+      newLeft = Math.max(0, Math.min(newLeft, heroRect.width  - card.offsetWidth));
+      newTop  = Math.max(0, Math.min(newTop,  heroRect.height - card.offsetHeight));
+      card.style.left = newLeft + "px";
+      card.style.top  = newTop  + "px";
+    });
 
-card.addEventListener("mousedown", function(e) {
-    isDragging = true;
-    offsetX = e.clientX - card.offsetLeft;
-    offsetY = e.clientY - card.offsetTop;
-    e.preventDefault();
-});
+    document.addEventListener("mouseup", () => isDragging = false);
+  </script>
 
-document.addEventListener("mousemove", function(e) {
-    if (!isDragging) return;
-
-    let newLeft = e.clientX - offsetX;
-    let newTop  = e.clientY - offsetY;
-
-    // Keep card inside the hero bounds
-    const heroRect = hero.getBoundingClientRect();
-    const maxLeft  = heroRect.width  - card.offsetWidth;
-    const maxTop   = heroRect.height - card.offsetHeight;
-
-    newLeft = Math.max(0, Math.min(newLeft, maxLeft));
-    newTop  = Math.max(0, Math.min(newTop,  maxTop));
-
-    card.style.left = newLeft + "px";
-    card.style.top  = newTop  + "px";
-});
-
-document.addEventListener("mouseup", function() {
-    isDragging = false;
-});
-
-</script>
+  <!-- Shared template (header + footer) — always last -->
+  <script src="template.js"></script>
 
 </body>
 </html>
