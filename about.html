@@ -1,448 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About | Carlos Olivencia Tax Services</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --gold-dim: rgba(201,168,76,0.15);
-    --dark: #0a0a0a;
-    --dark-mid: #111111;
-    --glass: rgba(10,10,10,0.75);
-    --text: #f0ead6;
-    --text-muted: rgba(240,234,214,0.65);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Carlos Olivencia Tax Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    .about-wrapper h1 {
+      font-size: 2rem;
+      letter-spacing: 4px;
+      color: #f2c94c;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-  body {
-    font-family: 'Raleway', sans-serif;
-    background-color: var(--dark);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    .about-subtitle {
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #e6d6a8;
+      margin-bottom: 40px;
+      opacity: 0.8;
+    }
 
-  /* Background matching home page style */
-  .bg-layer {
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 50%),
-      linear-gradient(160deg, #0d0d0d 0%, #080808 100%);
-    z-index: 0;
-  }
+    .gold-line {
+      border: none;
+      border-top: 1px solid rgba(242,201,76,0.4);
+      margin: 0 auto 40px;
+      width: 120px;
+    }
 
-  .bg-texture {
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    z-index: 0;
-    opacity: 0.5;
-  }
+    .profile-card {
+      background: rgba(30, 36, 48, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      padding: 40px;
+      display: flex;
+      gap: 35px;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.2rem 3rem;
-    background: rgba(8,8,8,0.92);
-    border-bottom: 1px solid rgba(201,168,76,0.2);
-    backdrop-filter: blur(12px);
-  }
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #f2c94c;
+      flex-shrink: 0;
+      background: rgba(242,201,76,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f2c94c;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
 
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    text-decoration: none;
-  }
+    .profile-info h2 {
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      color: #f2c94c;
+      margin-bottom: 6px;
+    }
 
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
+    .profile-info .role {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #e6d6a8;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
 
-  .nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
+    .credential {
+      display: inline-block;
+      background: rgba(242,201,76,0.12);
+      border: 1px solid rgba(242,201,76,0.3);
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #f2c94c;
+      margin-bottom: 8px;
+      margin-right: 8px;
+    }
 
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: var(--gold);
-  }
+    .mission-card {
+      background: rgba(30, 36, 48, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      padding: 40px;
+      margin-bottom: 30px;
+    }
 
-  /* MAIN CONTENT */
-  main {
-    position: relative;
-    z-index: 1;
-    padding-top: 100px;
-  }
+    .mission-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      color: #f2c94c;
+      margin-bottom: 25px;
+    }
 
-  /* HERO BANNER */
-  .about-hero {
-    text-align: center;
-    padding: 5rem 2rem 3rem;
-    position: relative;
-  }
+    .mission-card p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #f3e8c8;
+      margin-bottom: 16px;
+    }
 
-  .about-hero::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 2rem auto 0;
-  }
+    .mission-card p.closing {
+      color: #f2c94c;
+      font-style: italic;
+      border-top: 1px solid rgba(242,201,76,0.2);
+      padding-top: 18px;
+      margin-bottom: 0;
+    }
 
-  .about-hero .eyebrow {
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.2s;
-  }
+    .values-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
 
-  .about-hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 6vw, 4.5rem);
-    font-weight: 300;
-    color: var(--text);
-    line-height: 1.1;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.4s;
-  }
+    .value-card {
+      background: rgba(30, 36, 48, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      padding: 28px 20px;
+      text-align: center;
+    }
 
-  .about-hero h1 span {
-    color: var(--gold);
-    font-weight: 600;
-  }
+    .value-card .icon { font-size: 1.6rem; margin-bottom: 12px; }
 
-  /* PROFILE SECTION */
-  .profile-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 2rem 2rem;
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 3rem;
-    align-items: start;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.6s;
-  }
+    .value-card h4 {
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #f2c94c;
+      margin-bottom: 8px;
+    }
 
-  .profile-photo-placeholder {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 2px solid var(--gold);
-    background: var(--gold-dim);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    box-shadow: 0 0 30px rgba(201,168,76,0.15);
-    flex-shrink: 0;
-  }
+    .value-card p {
+      font-size: 12px;
+      line-height: 1.7;
+      color: #e6d6a8;
+      opacity: 0.85;
+    }
 
-  .profile-photo-placeholder svg {
-    width: 48px;
-    height: 48px;
-    opacity: 0.4;
-    color: var(--gold);
-  }
-
-  .profile-photo-placeholder span {
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    opacity: 0.5;
-    text-transform: uppercase;
-  }
-
-  .profile-info h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-  }
-
-  .profile-info .title {
-    color: var(--gold);
-    font-size: 0.82rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-  }
-
-  .credentials {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .credential-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--gold-dim);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 4px;
-    padding: 0.45rem 0.9rem;
-    font-size: 0.78rem;
-    color: var(--gold-light);
-    letter-spacing: 0.05em;
-    width: fit-content;
-  }
-
-  .credential-badge::before {
-    content: '✦';
-    font-size: 0.6rem;
-    color: var(--gold);
-  }
-
-  /* MISSION SECTION */
-  .mission-section {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 2rem 4rem;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 0.8s;
-  }
-
-  .mission-card {
-    background: rgba(15,15,15,0.8);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 8px;
-    padding: 3rem;
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-
-  .mission-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-
-  .mission-card::after {
-    content: '"';
-    position: absolute;
-    top: 1.5rem;
-    right: 2rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 8rem;
-    color: var(--gold);
-    opacity: 0.06;
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .mission-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 1.8rem;
-    letter-spacing: 0.05em;
-  }
-
-  .mission-card p {
-    font-size: 0.95rem;
-    line-height: 1.9;
-    color: var(--text-muted);
-    margin-bottom: 1.2rem;
-  }
-
-  .mission-card p:last-child {
-    color: var(--text);
-    font-size: 1rem;
-    font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 0;
-    border-top: 1px solid rgba(201,168,76,0.15);
-    padding-top: 1.2rem;
-    color: var(--gold-light);
-  }
-
-  /* VALUES ROW */
-  .values-row {
-    max-width: 900px;
-    margin: 0 auto 5rem;
-    padding: 0 2rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.9s ease forwards 1s;
-  }
-
-  .value-card {
-    background: rgba(12,12,12,0.7);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 6px;
-    padding: 1.8rem 1.5rem;
-    text-align: center;
-    transition: border-color 0.3s, transform 0.3s;
-  }
-
-  .value-card:hover {
-    border-color: rgba(201,168,76,0.4);
-    transform: translateY(-3px);
-  }
-
-  .value-icon {
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .value-card h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-
-  .value-card p {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
-
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 1.5rem;
-    border-top: 1px solid rgba(201,168,76,0.1);
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 680px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .profile-section { grid-template-columns: 1fr; justify-items: center; }
-    .values-row { grid-template-columns: 1fr; }
-    .mission-card { padding: 2rem 1.5rem; }
-  }
-</style>
+    @media (max-width: 768px) {
+      .about-wrapper { padding: 30px 20px 60px; }
+      .profile-card { flex-direction: column; align-items: center; text-align: center; }
+      .values-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<body>
+<body data-page="about">
 
-<div class="bg-layer"></div>
-<div class="bg-texture"></div>
+  <div class="page-body standard">
+    <div class="about-wrapper">
 
-<nav>
-  <a href="index.html" class="nav-logo">Carlos Olivencia Tax Services</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+      <h1>About Us</h1>
+      <p class="about-subtitle">Tax Professional &amp; Financial Advisor</p>
+      <hr class="gold-line">
 
-<main>
-  <section class="about-hero">
-    <p class="eyebrow">Get to Know Us</p>
-    <h1>About <span>Carlos Olivencia</span></h1>
-  </section>
-
-  <div class="profile-section">
-    <div class="profile-photo-placeholder">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-      </svg>
-      <span>Photo</span>
-    </div>
-
-    <div class="profile-info">
-      <h2>Carlos Olivencia</h2>
-      <p class="title">Tax Professional &amp; Financial Advisor</p>
-      <div class="credentials">
-        <span class="credential-badge">Master's Degree in Taxation</span>
-        <span class="credential-badge">IRS Filing Season Certificate</span>
+      <div class="profile-card">
+        <div class="profile-photo">Photo<br>Coming<br>Soon</div>
+        <div class="profile-info">
+          <h2>Carlos Olivencia</h2>
+          <p class="role">Tax Professional &amp; Financial Advisor</p>
+          <span class="credential">✦ Master's Degree in Taxation</span>
+          <span class="credential">✦ IRS Filing Season Certificate</span>
+          <br><br>
+          <p style="font-size:14px; line-height:1.8; color:#e6d6a8; opacity:0.9;">
+            With advanced academic training and official IRS recognition, Carlos Olivencia brings
+            both depth of knowledge and a personal commitment to every client relationship. His
+            approach is rooted in transparency, accuracy, and genuine care for your financial well-being.
+          </p>
+        </div>
       </div>
-      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.8;">
-        With advanced academic training and official IRS recognition, Carlos Olivencia brings both depth of knowledge and a personal commitment to every client relationship. His approach is rooted in transparency, accuracy, and genuine care for your financial well-being.
-      </p>
+
+      <div class="mission-card">
+        <h3>Our Mission</h3>
+        <p>
+          At Carlos Olivencia Tax Services, we believe that financial clarity is the foundation
+          of a peaceful life. Our mission is to provide every client with honest, accurate, and
+          personalized tax and financial services — treating each return not as a transaction,
+          but as an act of care for your family's future.
+        </p>
+        <p>
+          We bring professionalism, integrity, and a human touch to every interaction. Whether
+          you're navigating a complex business return, resolving an IRS issue, or simply trying
+          to understand your finances better, we are here to guide you with patience and expertise.
+        </p>
+        <p class="closing">Your peace of mind is our purpose.</p>
+      </div>
+
+      <div class="values-row">
+        <div class="value-card">
+          <div class="icon">⚖️</div>
+          <h4>Integrity</h4>
+          <p>We handle your finances with complete honesty and transparency — always.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🤝</div>
+          <h4>Personal Touch</h4>
+          <p>Every client is treated as an individual, not a number on a form.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon">🎯</div>
+          <h4>Expertise</h4>
+          <p>Advanced training and IRS credentials you can trust year-round.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div class="mission-section">
-    <div class="mission-card">
-      <h3>Our Mission</h3>
-      <p>
-        At Carlos Olivencia Tax Services, we believe that financial clarity is the foundation of a peaceful life. Our mission is to provide every client with honest, accurate, and personalized tax and financial services — treating each return not as a transaction, but as an act of care for your family's future.
-      </p>
-      <p>
-        We bring professionalism, integrity, and a human touch to every interaction. Whether you're navigating a complex business return, resolving an IRS issue, or simply trying to understand your finances better, we are here to guide you with patience and expertise.
-      </p>
-      <p>Your peace of mind is our purpose.</p>
-    </div>
-  </div>
-
-  <div class="values-row">
-    <div class="value-card">
-      <div class="value-icon">⚖️</div>
-      <h4>Integrity</h4>
-      <p>We handle your finances with complete honesty and transparency — always.</p>
-    </div>
-    <div class="value-card">
-      <div class="value-icon">🤝</div>
-      <h4>Personal Touch</h4>
-      <p>Every client is treated as an individual, not a number on a form.</p>
-    </div>
-    <div class="value-card">
-      <div class="value-icon">🎯</div>
-      <h4>Expertise</h4>
-      <p>Advanced training and IRS credentials you can trust year-round.</p>
-    </div>
-  </div>
-</main>
-
-<footer>
-  &copy; 2025 Carlos Olivencia Tax Services &nbsp;|&nbsp; All Rights Reserved
-</footer>
+  <script src="template.js"></script>
 
 </body>
 </html>
