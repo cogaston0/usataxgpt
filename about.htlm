@@ -289,66 +289,42 @@
     // We'll implement a minimal GLTF parser using THREE primitives
     // for the embedded data, or load via object URL
 
-    function loadGLTF() {
-      try {
-        const blob = new Blob([GLTF_DATA], { type: 'model/gltf+json' });
-        const url = URL.createObjectURL(blob);
-
-        // Dynamically load GLTFLoader
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
-        script.onload = function() {
-          const loader = new THREE.GLTFLoader();
-          loader.load(url, function(gltf) {
-            URL.revokeObjectURL(url);
-            model = gltf.scene;
-
-            // Scale and position - Mixamo characters are tall
-            model.scale.setScalar(0.011);
-            model.position.set(walkPos, -0.05, 0);
-            model.rotation.y = 0;
-
-            // Apply gold-tinted material override for stylish look
-            model.traverse(function(child) {
-              if (child.isMesh) {
-                child.castShadow = true;
-                // Keep original colors but boost them slightly
-                if (child.material) {
-                  if (Array.isArray(child.material)) {
-                    child.material.forEach(m => { m.envMapIntensity = 0.5; });
-                  } else {
-                    child.material.envMapIntensity = 0.5;
-                  }
-                }
-              }
-            });
-
-            scene.add(model);
-
-            // Animation
-            mixer = new THREE.AnimationMixer(model);
-            if (gltf.animations && gltf.animations.length > 0) {
-              const action = mixer.clipAction(gltf.animations[0]);
-              action.play();
-            }
-
-            loading.style.display = 'none';
-          }, 
-          function(xhr) {
-            // progress
-          },
-          function(err) {
-            console.error('GLTF load error:', err);
-            loading.innerHTML = '<span style="font-size:11px;opacity:0.6">3D unavailable</span>';
-          });
-        };
-        script.onerror = function() {
-          loading.innerHTML = '<span style="font-size:11px;opacity:0.6">CDN unavailable</span>';
-        };
-        document.head.appendChild(script);
-      } catch(e) {
-        console.error(e);
+    function onGLTFLoaded(gltf) {
+      model = gltf.scene;
+      model.scale.setScalar(0.011);
+      model.position.set(walkPos, -0.05, 0);
+      model.rotation.y = 0;
+      model.traverse(function(child) {
+        if (child.isMesh) child.castShadow = true;
+      });
+      scene.add(model);
+      mixer = new THREE.AnimationMixer(model);
+      if (gltf.animations && gltf.animations.length > 0) {
+        mixer.clipAction(gltf.animations[0]).play();
       }
+      loading.style.display = 'none';
+    }
+
+    function loadGLTF() {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
+      script.onload = function() {
+        try {
+          const loader = new THREE.GLTFLoader();
+          // Use parse() directly with the JSON string — avoids blob URL cross-origin issues
+          loader.parse(GLTF_DATA, '', onGLTFLoaded, function(err) {
+            console.error('GLTF parse error:', err);
+            loading.innerHTML = '<span style="font-size:11px;opacity:0.6;">Could not load 3D model</span>';
+          });
+        } catch(e) {
+          console.error('GLTF error:', e);
+          loading.innerHTML = '<span style="font-size:11px;opacity:0.6;">3D unavailable</span>';
+        }
+      };
+      script.onerror = function() {
+        loading.innerHTML = '<span style="font-size:11px;opacity:0.6;">CDN unavailable</span>';
+      };
+      document.head.appendChild(script);
     }
 
     loadGLTF();
