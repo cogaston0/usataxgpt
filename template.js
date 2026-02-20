@@ -1,80 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carlos Olivencia — Tax Division</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
+// ── Inject Header ──
+(function () {
+  const currentPage = document.body.getAttribute("data-page") || "";
 
-<body data-page="home">
+  const links = [
+    { href: "index.html",    label: "Home",     page: "home"     },
+    { href: "services.html", label: "Services", page: "services" },
+    { href: "about.html",    label: "About",    page: "about"    },
+    { href: "contact.html",  label: "Contact",  page: "contact"  },
+    { href: "login.html",    label: "Login",    page: "login"    },
+  ];
 
-  <section class="hero">
-    <div class="intake-card" id="draggableCard">
-      <h2>Carlos Olivencia — Tax Intake</h2>
-      <div class="secure">● Secure Connection Active</div>
-      <p>Welcome to Carlos Olivencia Tax Services.</p>
-      <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
-      <p>Are you ready to start your 2025 tax intake?</p>
-      <div class="input-area">
-        <input type="text" placeholder="Type your response...">
-        <button>Send</button>
+  const navLinks = links.map(function (l) {
+    const active = l.page === currentPage ? ' class="active"' : '';
+    return '<a href="' + l.href + '"' + active + '>' + l.label + '</a>';
+  }).join("\n        ");
+
+  const header = `
+  <header class="site-header">
+    <div class="header-container">
+      <div class="logo">
+        <img src="logo.png" alt="Carlos Olivencia Logo">
       </div>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        ${navLinks}
+      </nav>
     </div>
-  </section>
+  </header>`;
 
-  <!-- template.js first — so header is injected before drag script runs -->
-  <script src="template.js"></script>
+  const footer = `
+  <footer class="site-footer">
+    © 2025 Carlos Olivencia Tax &amp; Financial Services |
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Service</a>
+  </footer>`;
 
-  <script>
-    // Wait for full page including injected header before initializing drag
-    window.addEventListener("load", function () {
+  // Insert header at top of body
+  document.body.insertAdjacentHTML("afterbegin", header);
+
+  // Insert footer at end of body
+  document.body.insertAdjacentHTML("beforeend", footer);
+
+  // ── Hamburger toggle ──
+  const btn = document.getElementById("hamburger");
+  const nav = document.getElementById("mainNav");
+
+  btn.addEventListener("click", function () {
+    const isOpening = !btn.classList.contains("open");
+    btn.classList.toggle("open");
+    nav.classList.toggle("open");
+
+    // Hide intake card if present
+    const card = document.getElementById("draggableCard");
+    if (card) {
+      card.style.visibility = isOpening ? "hidden" : "visible";
+      card.style.opacity    = isOpening ? "0"      : "1";
+    }
+  });
+
+  nav.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      btn.classList.remove("open");
+      nav.classList.remove("open");
       const card = document.getElementById("draggableCard");
-      const hero = card.parentElement;
-      let isDragging = false, offsetX, offsetY;
-
-      function startDrag(x, y) {
-        isDragging = true;
-        offsetX = x - card.offsetLeft;
-        offsetY = y - card.offsetTop;
+      if (card) {
+        card.style.visibility = "visible";
+        card.style.opacity    = "1";
       }
-
-      function moveDrag(x, y) {
-        if (!isDragging) return;
-        const heroRect = hero.getBoundingClientRect();
-        let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
-        let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
-        card.style.left = newLeft + "px";
-        card.style.top  = newTop  + "px";
-      }
-
-      function endDrag() { isDragging = false; }
-
-      // Mouse
-      card.addEventListener("mousedown", function(e) {
-        startDrag(e.clientX, e.clientY);
-        e.preventDefault();
-      });
-      document.addEventListener("mousemove", function(e) { moveDrag(e.clientX, e.clientY); });
-      document.addEventListener("mouseup", endDrag);
-
-      // Touch
-      card.addEventListener("touchstart", function(e) {
-        const t = e.touches[0];
-        startDrag(t.clientX, t.clientY);
-        e.preventDefault();
-      }, { passive: false });
-
-      document.addEventListener("touchmove", function(e) {
-        const t = e.touches[0];
-        moveDrag(t.clientX, t.clientY);
-        e.preventDefault();
-      }, { passive: false });
-
-      document.addEventListener("touchend", endDrag);
     });
-  </script>
-
-</body>
-</html>
+  });
+})();
