@@ -1,92 +1,80 @@
-/* ============================================
-   CARLOS OLIVENCIA TAX SERVICES
-   template.js — Shared Header & Footer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carlos Olivencia — Tax Division</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-   HOW TO USE ON ANY NEW PAGE:
-   1. Add to <head>:
-        <link rel="stylesheet" href="style.css">
-   2. Add before </body>:
-        <script src="template.js"></script>
-   3. Add data-page="pagename" to <body> tag
-      to highlight the correct nav link, e.g.:
-        <body data-page="services">
-   ============================================ */
+<body data-page="home">
 
-(function () {
-
-  // ── NAV LINKS ─────────────────────────────
-  const navLinks = [
-    { label: "Home",     href: "index.html" },
-    { label: "Services", href: "services.html" },
-    { label: "About",    href: "about.html" },
-    { label: "Contact",  href: "contact.html" },
-    { label: "Login",    href: "login.html" },
-  ];
-
-  // ── HEADER ────────────────────────────────
-  const currentPage = document.body.dataset.page || "";
-
-  const navHTML = navLinks.map(link => {
-    const isActive = link.label.toLowerCase() === currentPage.toLowerCase();
-    return `<a href="${link.href}"${isActive ? ' class="active"' : ''}>${link.label}</a>`;
-  }).join("\n      ");
-
-  const headerHTML = `
-<header class="site-header">
-  <div class="header-container">
-    <div class="logo">
-      <img src="logo.png" alt="Carlos Olivencia Logo">
+  <section class="hero">
+    <div class="intake-card" id="draggableCard">
+      <h2>Carlos Olivencia — Tax Intake</h2>
+      <div class="secure">● Secure Connection Active</div>
+      <p>Welcome to Carlos Olivencia Tax Services.</p>
+      <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
+      <p>Are you ready to start your 2025 tax intake?</p>
+      <div class="input-area">
+        <input type="text" placeholder="Type your response...">
+        <button>Send</button>
+      </div>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
-    <nav class="main-nav" id="mainNav">
-      ${navHTML}
-    </nav>
-  </div>
-</header>`;
+  </section>
 
-  // ── FOOTER ────────────────────────────────
-  const year = new Date().getFullYear();
-  const footerHTML = `
-<footer class="site-footer">
-  © ${year} Carlos Olivencia Tax &amp; Financial Services |
-  <a href="privacy.html">Privacy Policy</a> |
-  <a href="terms.html">Terms of Service</a>
-</footer>`;
+  <!-- template.js first — so header is injected before drag script runs -->
+  <script src="template.js"></script>
 
-  // ── INJECT ────────────────────────────────
-  document.body.insertAdjacentHTML("afterbegin", headerHTML);
-  document.body.insertAdjacentHTML("beforeend", footerHTML);
+  <script>
+    // Wait for full page including injected header before initializing drag
+    window.addEventListener("load", function () {
+      const card = document.getElementById("draggableCard");
+      const hero = card.parentElement;
+      let isDragging = false, offsetX, offsetY;
 
-  // ── HAMBURGER TOGGLE ──────────────────────
-  const btn = document.getElementById("hamburger");
-  const nav = document.getElementById("mainNav");
+      function startDrag(x, y) {
+        isDragging = true;
+        offsetX = x - card.offsetLeft;
+        offsetY = y - card.offsetTop;
+      }
 
-  // Any element with class "intake-card" or id "draggableCard" gets hidden
-  function setCardVisibility(visible) {
-    const card = document.getElementById("draggableCard") ||
-                 document.querySelector(".intake-card");
-    if (card) {
-      card.style.visibility = visible ? "visible" : "hidden";
-      card.style.opacity    = visible ? "1" : "0";
-    }
-  }
+      function moveDrag(x, y) {
+        if (!isDragging) return;
+        const heroRect = hero.getBoundingClientRect();
+        let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
+        let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
+        card.style.left = newLeft + "px";
+        card.style.top  = newTop  + "px";
+      }
 
-  btn.addEventListener("click", function () {
-    const isOpening = !btn.classList.contains("open");
-    btn.classList.toggle("open");
-    nav.classList.toggle("open");
-    setCardVisibility(!isOpening); // hide when opening, show when closing
-  });
+      function endDrag() { isDragging = false; }
 
-  // Close menu and restore card when a link is tapped
-  nav.querySelectorAll("a").forEach(function(link) {
-    link.addEventListener("click", function () {
-      btn.classList.remove("open");
-      nav.classList.remove("open");
-      setCardVisibility(true);
+      // Mouse
+      card.addEventListener("mousedown", function(e) {
+        startDrag(e.clientX, e.clientY);
+        e.preventDefault();
+      });
+      document.addEventListener("mousemove", function(e) { moveDrag(e.clientX, e.clientY); });
+      document.addEventListener("mouseup", endDrag);
+
+      // Touch
+      card.addEventListener("touchstart", function(e) {
+        const t = e.touches[0];
+        startDrag(t.clientX, t.clientY);
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function(e) {
+        const t = e.touches[0];
+        moveDrag(t.clientX, t.clientY);
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener("touchend", endDrag);
     });
-  });
+  </script>
 
-})();
+</body>
+</html>
