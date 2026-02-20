@@ -1,117 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create Account | Carlos Olivencia</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-                url('krsna.png') no-repeat center center/cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-.register-container {
-    background: rgba(20, 40, 80, 0.85);
-    padding: 40px;
-    border-radius: 14px;
-    width: 350px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-}
-
-.register-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #f2c94c;
-}
-
-.input-group {
-    margin-bottom: 18px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-}
-
-.register-btn {
-    width: 100%;
-    padding: 12px;
-    background: #2d4a9d;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.register-btn:hover {
-    background: #1f3570;
-}
-
-.login-link {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.login-link a {
-    color: #f2c94c;
-    text-decoration: none;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Carlos Olivencia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-page="register">
 
-<div class="register-container">
-    <h2>Create Account</h2>
+  <!-- ═══ UNIQUE PAGE CONTENT ═══ -->
 
-    <form>
+  <main class="page-body centered">
+    <div class="card narrow">
+      <h2 class="form-title">Create Account</h2>
+      <form>
         <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" required>
+          <label>Full Name</label>
+          <input type="text" required>
         </div>
-
         <div class="input-group">
-            <label>Email</label>
-            <input type="email" required>
+          <label>Email</label>
+          <input type="email" required>
         </div>
-
         <div class="input-group">
-            <label>Password</label>
-            <input type="password" required>
+          <label>Password</label>
+          <input type="password" required>
         </div>
-
-        <button class="register-btn" type="submit">Create Account</button>
-    </form>
-
-    <div class="login-link">
+        <button class="btn-primary" type="submit">Create Account</button>
+      </form>
+      <div class="form-link">
         <a href="login.html">Already have an account? Login</a>
+      </div>
     </div>
-</div>
+  </main>
+
+  <!-- ═══ END UNIQUE CONTENT ═══ -->
+
+  <script src="template.js"></script>
 
 </body>
 </html>
-
