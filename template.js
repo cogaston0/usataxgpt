@@ -63,16 +63,29 @@
   const btn = document.getElementById("hamburger");
   const nav = document.getElementById("mainNav");
 
+  // Any element with class "intake-card" or id "draggableCard" gets hidden
+  function setCardVisibility(visible) {
+    const card = document.getElementById("draggableCard") ||
+                 document.querySelector(".intake-card");
+    if (card) {
+      card.style.visibility = visible ? "visible" : "hidden";
+      card.style.opacity    = visible ? "1" : "0";
+    }
+  }
+
   btn.addEventListener("click", function () {
+    const isOpening = !btn.classList.contains("open");
     btn.classList.toggle("open");
     nav.classList.toggle("open");
+    setCardVisibility(!isOpening); // hide when opening, show when closing
   });
 
-  // Close menu when a link is tapped
+  // Close menu and restore card when a link is tapped
   nav.querySelectorAll("a").forEach(function(link) {
     link.addEventListener("click", function () {
       btn.classList.remove("open");
       nav.classList.remove("open");
+      setCardVisibility(true);
     });
   });
 
