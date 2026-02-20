@@ -25,48 +25,55 @@
   </section>
 
   <script>
-    const card = document.getElementById("draggableCard");
-    const hero = card.parentElement;
-    let isDragging = false, offsetX, offsetY;
+    // DOMContentLoaded fires after template.js has injected header/footer
+    document.addEventListener("DOMContentLoaded", function () {
+      const card = document.getElementById("draggableCard");
+      const hero = card.parentElement;
+      let isDragging = false, offsetX, offsetY;
 
-    function startDrag(x, y) {
-      isDragging = true;
-      offsetX = x - card.offsetLeft;
-      offsetY = y - card.offsetTop;
-    }
+      function startDrag(x, y) {
+        isDragging = true;
+        offsetX = x - card.offsetLeft;
+        offsetY = y - card.offsetTop;
+      }
 
-    function moveDrag(x, y) {
-      if (!isDragging) return;
-      const heroRect = hero.getBoundingClientRect();
-      let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
-      let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
-      card.style.left = newLeft + "px";
-      card.style.top  = newTop  + "px";
-    }
+      function moveDrag(x, y) {
+        if (!isDragging) return;
+        const heroRect = hero.getBoundingClientRect();
+        let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
+        let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
+        card.style.left = newLeft + "px";
+        card.style.top  = newTop  + "px";
+      }
 
-    function endDrag() { isDragging = false; }
+      function endDrag() { isDragging = false; }
 
-    // Mouse events
-    card.addEventListener("mousedown",  e => { startDrag(e.clientX, e.clientY); e.preventDefault(); });
-    document.addEventListener("mousemove", e => moveDrag(e.clientX, e.clientY));
-    document.addEventListener("mouseup",   endDrag);
+      // Mouse
+      card.addEventListener("mousedown", function(e) {
+        startDrag(e.clientX, e.clientY);
+        e.preventDefault();
+      });
+      document.addEventListener("mousemove", function(e) { moveDrag(e.clientX, e.clientY); });
+      document.addEventListener("mouseup", endDrag);
 
-    // Touch events
-    card.addEventListener("touchstart", e => {
-      const t = e.touches[0];
-      startDrag(t.clientX, t.clientY);
-      e.preventDefault();
-    }, { passive: false });
+      // Touch
+      card.addEventListener("touchstart", function(e) {
+        const t = e.touches[0];
+        startDrag(t.clientX, t.clientY);
+        e.preventDefault();
+      }, { passive: false });
 
-    document.addEventListener("touchmove", e => {
-      const t = e.touches[0];
-      moveDrag(t.clientX, t.clientY);
-      e.preventDefault();
-    }, { passive: false });
+      document.addEventListener("touchmove", function(e) {
+        const t = e.touches[0];
+        moveDrag(t.clientX, t.clientY);
+        e.preventDefault();
+      }, { passive: false });
 
-    document.addEventListener("touchend", endDrag);
+      document.addEventListener("touchend", endDrag);
+    });
   </script>
 
+  <!-- template.js always last — injects header and footer -->
   <script src="template.js"></script>
 
 </body>
