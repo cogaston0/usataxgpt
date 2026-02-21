@@ -4,9 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About | Carlos Olivencia Tax Services</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
   <style>
+    /* ===============================
+       TRUE FIXED KRISHNA BACKGROUND
+       =============================== */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .krishna-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-image: url("images/krishna.jpg"); /* adjust path if needed */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    .page-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===============================
+       ABOUT PAGE STYLES
+       =============================== */
+
     .about-wrapper {
       max-width: 860px;
       margin: 0 auto;
@@ -139,7 +172,10 @@
       text-align: center;
     }
 
-    .value-card .icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .value-card .icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
 
     .value-card h4 {
       font-size: 13px;
@@ -155,16 +191,6 @@
       opacity: 0.85;
     }
 
-    /* Fix Krishna background for all devices including iPhone */
-    body {
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: scroll;
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-    }
-
     @media (max-width: 768px) {
       .about-wrapper { padding: 30px 20px 60px; }
       .profile-card { flex-direction: column; align-items: center; text-align: center; }
@@ -172,20 +198,24 @@
     }
   </style>
 </head>
+
 <body data-page="about">
+
+  <!-- Fixed Krishna Background Layer -->
+  <div class="krishna-bg"></div>
 
   <div class="page-body standard">
     <div class="about-wrapper">
 
       <h1>About Us</h1>
-      <p class="about-subtitle">Tax Professional &amp; Financial Advisor</p>
+      <p class="about-subtitle">Tax Professional & Financial Advisor</p>
       <hr class="gold-line">
 
       <div class="profile-card">
         <div class="profile-photo">Photo<br>Coming<br>Soon</div>
         <div class="profile-info">
           <h2>Carlos Olivencia</h2>
-          <p class="role">Tax Professional &amp; Financial Advisor</p>
+          <p class="role">Tax Professional & Financial Advisor</p>
           <span class="credential">✦ Master's Degree in Taxation</span>
           <span class="credential">✦ IRS Filing Season Certificate</span>
           <br><br>
@@ -206,9 +236,7 @@
           but as an act of care for your family's future.
         </p>
         <p>
-          We bring professionalism, integrity, and a human touch to every interaction. Whether
-          you're navigating a complex business return, resolving an IRS issue, or simply trying
-          to understand your finances better, we are here to guide you with patience and expertise.
+          We bring professionalism, integrity, and a human touch to every interaction.
         </p>
         <p class="closing">Your peace of mind is our purpose.</p>
       </div>
