@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Carlos Olivencia Tax Services</title>
 
+<!-- Favicon -->
 <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
 <link rel="apple-touch-icon" href="logo.png">
@@ -14,16 +15,12 @@
 
 <style>
 
-/* ===============================
-   TRUE FIXED KRISHNA BACKGROUND
-   =============================== */
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+/* Remove body background for this page only */
+body[data-page="about"] {
+    background: none !important;
 }
 
+/* Fixed Krishna Background */
 .krishna-bg {
     position: fixed;
     top: 0;
@@ -37,14 +34,13 @@ html, body {
     z-index: -1;
 }
 
+/* Ensure content above background */
 .page-body {
     position: relative;
     z-index: 1;
 }
 
-/* ===============================
-   ABOUT PAGE STYLES
-   =============================== */
+/* ===== About Layout ===== */
 
 .about-wrapper {
     max-width: 860px;
@@ -66,7 +62,6 @@ html, body {
     letter-spacing: 3px;
     color: #e6d6a8;
     margin-bottom: 40px;
-    opacity: 0.8;
 }
 
 .gold-line {
@@ -189,16 +184,13 @@ html, body {
     color: #e6d6a8;
 }
 
-/* ===============================
-   MOBILE ADJUSTMENT
-   =============================== */
+/* ===== Mobile Fix ===== */
 
 @media (max-width: 768px) {
 
-    /* Scale background down */
     .krishna-bg {
-        background-size: contain;   /* Shows more of image */
-        background-position: top center;
+        background-size: cover;
+        background-position: center 20%;
     }
 
     .about-wrapper {
