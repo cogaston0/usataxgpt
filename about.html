@@ -155,6 +155,14 @@
       opacity: 0.85;
     }
 
+    /* Fix Krishna background for all devices including iPhone */
+    body {
+      background-size: 100%;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+    }
+
     @media (max-width: 768px) {
       .about-wrapper { padding: 30px 20px 60px; }
       .profile-card { flex-direction: column; align-items: center; text-align: center; }
