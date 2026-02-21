@@ -157,10 +157,12 @@
 
     /* Fix Krishna background for all devices including iPhone */
     body {
-      background-size: 100%;
-      background-position: center top;
+      background-size: cover;
+      background-position: center center;
       background-repeat: no-repeat;
       background-attachment: scroll;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
     }
 
     @media (max-width: 768px) {
