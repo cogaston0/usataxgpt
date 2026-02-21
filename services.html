@@ -7,136 +7,181 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    /* ── PAGE-SPECIFIC STYLES ── */
-    .services-hero {
-      position: relative;
-      min-height: 38vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      overflow: hidden;
-      padding: 6rem 2rem 4rem;
-    }
 
-    .services-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+    /* ── FULL-PAGE KRISHNA BACKGROUND ── */
+    body {
       background-image: url('krsna.png');
       background-size: cover;
       background-position: center top;
-      background-attachment: scroll;
-      filter: brightness(0.25);
-      z-index: 0;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      min-height: 100vh;
     }
 
-    .services-hero::after {
+    /* iOS fix */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+
+    /* Dark overlay over entire page */
+    body::before {
       content: '';
-      position: absolute;
+      position: fixed;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(10,10,15,0.3) 0%,
-        rgba(10,10,15,0.7) 70%,
-        rgba(10,10,15,1) 100%
-      );
+      background: rgba(5, 4, 12, 0.60);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* All content sits above overlay */
+    #nav-placeholder,
+    .page-wrapper,
+    #footer-placeholder {
+      position: relative;
       z-index: 1;
     }
 
-    .services-hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .services-hero-content h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: #c9a84c;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 40px rgba(201,168,76,0.4);
-      letter-spacing: 0.05em;
-    }
-
-    .services-hero-content p {
-      font-family: 'Raleway', sans-serif;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: rgba(255,255,255,0.8);
-      max-width: 640px;
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 1100px;
       margin: 0 auto;
-      font-weight: 300;
-      line-height: 1.7;
+      padding: 2rem 1.5rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
-    /* ── GOLD DIVIDER ── */
+    /* ── SHARED GLASS PANEL ── */
+    .glass-panel {
+      background: rgba(10, 8, 20, 0.55);
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      border-radius: 20px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 8px 48px rgba(0,0,0,0.45), inset 0 1px 0 rgba(201,168,76,0.1);
+      padding: 3rem 2.5rem;
+    }
+
+    /* ── HERO GLASS PANEL ── */
+    .hero-panel {
+      text-align: center;
+      padding: 4rem 2.5rem;
+      background: rgba(5, 4, 14, 0.68);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 24px;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 12px 64px rgba(0,0,0,0.55), inset 0 1px 0 rgba(201,168,76,0.15);
+      margin-top: 1.5rem;
+    }
+
+    .eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      color: #c9a84c;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-panel h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      color: #fff;
+      text-shadow: 0 0 60px rgba(201,168,76,0.35);
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
     .gold-divider {
-      width: 80px;
+      width: 90px;
       height: 2px;
       background: linear-gradient(90deg, transparent, #c9a84c, transparent);
       margin: 1.2rem auto;
     }
 
-    /* ── SERVICES SECTION ── */
-    .services-section {
-      padding: 4rem 2rem 6rem;
-      max-width: 1200px;
+    .hero-panel p.lead {
+      font-family: 'Raleway', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 600px;
       margin: 0 auto;
     }
 
-    .section-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      color: #c9a84c;
-      text-transform: uppercase;
+    /* ── CREDENTIALS GLASS PANEL ── */
+    .credentials-panel {
       text-align: center;
-      margin-bottom: 0.5rem;
+      padding: 1.6rem 2rem;
     }
 
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      color: #fff;
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-subtitle {
+    .credentials-panel p {
       font-family: 'Raleway', sans-serif;
-      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .dot {
+      color: #c9a84c;
+      margin: 0 0.9rem;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
       text-align: center;
-      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: #fff;
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    .section-header p {
+      font-family: 'Raleway', sans-serif;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
       font-weight: 300;
-      max-width: 560px;
-      margin: 0 auto 3.5rem;
+      max-width: 520px;
+      margin: 0 auto;
       line-height: 1.7;
     }
 
     /* ── SERVICES GRID ── */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.8rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.4rem;
     }
 
+    /* ── INDIVIDUAL SERVICE GLASS CARD ── */
     .service-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(201,168,76,0.18);
       border-radius: 16px;
-      padding: 2.2rem 2rem;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      padding: 2rem 1.8rem;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .service-card::before {
+    .service-card::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, transparent, #c9a84c, transparent);
       opacity: 0;
@@ -144,49 +189,53 @@
     }
 
     .service-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(201,168,76,0.45);
-      box-shadow: 0 20px 60px rgba(201,168,76,0.08);
+      transform: translateY(-5px);
+      border-color: rgba(201,168,76,0.42);
+      box-shadow: 0 16px 48px rgba(201,168,76,0.1);
+      background: rgba(201,168,76,0.06);
     }
 
-    .service-card:hover::before {
+    .service-card:hover::after {
       opacity: 1;
     }
 
     .service-icon {
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
       display: block;
+      margin-bottom: 1rem;
     }
 
     .service-card h3 {
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: #c9a84c;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
       font-weight: 600;
+      line-height: 1.4;
     }
 
-    .service-card p {
+    .service-card > p {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.65);
       line-height: 1.75;
       font-weight: 300;
+      margin-bottom: 1rem;
     }
 
     .service-card ul {
       list-style: none;
       padding: 0;
-      margin: 1rem 0 0;
+      margin: 0;
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding-top: 1rem;
     }
 
     .service-card ul li {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.6);
-      padding: 0.3rem 0;
-      padding-left: 1.2rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      padding: 0.28rem 0 0.28rem 1.3rem;
       position: relative;
       font-weight: 300;
     }
@@ -196,58 +245,67 @@
       position: absolute;
       left: 0;
       color: #c9a84c;
-      font-size: 0.5rem;
-      top: 0.55rem;
+      font-size: 0.42rem;
+      top: 0.6rem;
     }
 
-    /* ── FEATURED / WIDE CARD ── */
+    /* ── FEATURED WIDE CARD ── */
     .service-card.featured {
       grid-column: 1 / -1;
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 2rem;
+      grid-template-columns: 3.5rem 1fr;
+      gap: 0 1.8rem;
       align-items: start;
-      background: rgba(201,168,76,0.05);
+      background: rgba(201,168,76,0.06);
       border-color: rgba(201,168,76,0.3);
     }
 
-    .service-card.featured .card-text h3 {
-      font-size: 1.3rem;
+    .service-card.featured .card-icon {
+      font-size: 2.6rem;
+      margin-top: 0.2rem;
     }
 
-    @media (max-width: 600px) {
+    .service-card.featured h3 {
+      font-size: 1.2rem;
+    }
+
+    .service-card.featured ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0 1rem;
+    }
+
+    @media (max-width: 580px) {
       .service-card.featured {
         grid-template-columns: 1fr;
-        gap: 1rem;
+      }
+      .service-card.featured ul {
+        grid-template-columns: 1fr;
       }
     }
 
-    /* ── PRICING NOTE ── */
-    .pricing-note {
-      margin-top: 4rem;
+    /* ── CTA GLASS PANEL ── */
+    .cta-panel {
       text-align: center;
-      padding: 2.5rem 2rem;
-      background: rgba(201,168,76,0.06);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 16px;
-      backdrop-filter: blur(8px);
+      background: rgba(201,168,76,0.07);
+      border-color: rgba(201,168,76,0.3);
     }
 
-    .pricing-note h3 {
+    .cta-panel h3 {
       font-family: 'Cinzel', serif;
       color: #c9a84c;
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      margin-bottom: 1rem;
     }
 
-    .pricing-note p {
+    .cta-panel p {
       font-family: 'Raleway', sans-serif;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.98rem;
-      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      font-size: 1rem;
       font-weight: 300;
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 2rem;
     }
 
     .cta-btn {
@@ -255,186 +313,176 @@
       background: linear-gradient(135deg, #c9a84c, #a8893e);
       color: #0a0a0f;
       font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      padding: 0.85rem 2.2rem;
+      letter-spacing: 0.12em;
+      padding: 0.9rem 2.5rem;
       border-radius: 50px;
       text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 20px rgba(201,168,76,0.25);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 24px rgba(201,168,76,0.3);
     }
 
     .cta-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(201,168,76,0.45);
     }
 
-    /* ── CREDENTIALS STRIP ── */
-    .credentials-strip {
-      background: rgba(255,255,255,0.03);
-      border-top: 1px solid rgba(201,168,76,0.12);
-      border-bottom: 1px solid rgba(201,168,76,0.12);
-      padding: 2rem;
-      text-align: center;
-      margin: 0 0 0;
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .glass-panel,
+      .hero-panel {
+        padding: 2rem 1.4rem;
+      }
+      .page-wrapper {
+        padding: 1rem 1rem 4rem;
+        gap: 1.4rem;
+      }
     }
 
-    .credentials-strip p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.45);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .credentials-strip span {
-      color: #c9a84c;
-      margin: 0 0.8rem;
-    }
   </style>
 </head>
 <body>
 
-  <!-- NAV injected by template.js -->
   <div id="nav-placeholder"></div>
 
-  <!-- ── HERO ── -->
-  <section class="services-hero">
-    <div class="services-hero-content">
-      <p class="section-label" style="margin-bottom:0.8rem;">What We Offer</p>
+  <div class="page-wrapper">
+
+    <!-- ── HERO GLASS PANEL ── -->
+    <div class="hero-panel">
+      <p class="eyebrow">Carlos Olivencia Tax Services</p>
       <h1>Our Services</h1>
       <div class="gold-divider"></div>
-      <p>Expert tax preparation, IRS resolution, and financial guidance — handled with precision, integrity, and personal care.</p>
+      <p class="lead">Expert tax preparation, IRS resolution, and financial guidance — handled with precision, integrity, and genuine personal care.</p>
     </div>
-  </section>
 
-  <!-- ── CREDENTIALS STRIP ── -->
-  <div class="credentials-strip">
-    <p>
-      <span>✦</span>
-      Master's Degree in Taxation
-      <span>✦</span>
-      IRS Filing Season Certificate
-      <span>✦</span>
-      Notary Public
-      <span>✦</span>
-    </p>
-  </div>
+    <!-- ── CREDENTIALS GLASS PANEL ── -->
+    <div class="glass-panel credentials-panel">
+      <p>
+        <span class="dot">✦</span>
+        Master's Degree in Taxation
+        <span class="dot">✦</span>
+        IRS Filing Season Certificate
+        <span class="dot">✦</span>
+        Notary Public
+        <span class="dot">✦</span>
+      </p>
+    </div>
 
-  <!-- ── MAIN SERVICES ── -->
-  <section class="services-section">
-    <p class="section-label">Comprehensive Solutions</p>
-    <h2 class="section-title">How We Can Help You</h2>
-    <p class="section-subtitle">From simple returns to complex business filings, we bring graduate-level tax knowledge to every client relationship.</p>
+    <!-- ── SERVICES GLASS PANEL ── -->
+    <div class="glass-panel">
+      <div class="section-header">
+        <p class="eyebrow">Comprehensive Solutions</p>
+        <h2>How We Can Help You</h2>
+        <p>From simple returns to complex business filings, we bring graduate-level tax knowledge to every client relationship.</p>
+      </div>
 
-    <div class="services-grid">
+      <div class="services-grid">
 
-      <!-- FEATURED: Tax Preparation -->
-      <div class="service-card featured">
-        <span class="service-icon">📋</span>
-        <div class="card-text">
-          <h3>Tax Preparation — Individual & Business</h3>
-          <p>Accurate, thorough tax preparation for individuals, families, freelancers, and businesses of all sizes. We maximize your deductions while ensuring full compliance with federal and state tax laws.</p>
+        <!-- FEATURED: Tax Preparation -->
+        <div class="service-card featured">
+          <span class="card-icon">📋</span>
+          <div>
+            <h3>Tax Preparation — Individual &amp; Business</h3>
+            <p>Accurate, thorough tax preparation for individuals, families, freelancers, and businesses of all sizes. We maximize your deductions while ensuring full compliance with federal and state tax laws.</p>
+            <ul>
+              <li>Federal &amp; State Income Tax Returns (1040, 1120, 1120-S, 1065)</li>
+              <li>Self-Employed &amp; Freelancer Returns (Schedule C)</li>
+              <li>Rental Property Income (Schedule E)</li>
+              <li>Multi-State Filing</li>
+              <li>LLC, S-Corp &amp; Partnership Returns</li>
+              <li>Prior Year / Amended Returns (Form 1040-X)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- IRS Resolution -->
+        <div class="service-card">
+          <span class="service-icon">🏛️</span>
+          <h3>IRS Problem Resolution</h3>
+          <p>Facing an audit, back taxes, or an IRS notice? We advocate on your behalf and work toward the best possible outcome.</p>
           <ul>
-            <li>Federal & State Income Tax Returns (1040, 1120, 1120-S, 1065)</li>
-            <li>Self-Employed & Freelancer Returns (Schedule C)</li>
-            <li>Rental Property Income (Schedule E)</li>
-            <li>Multi-State Filing</li>
-            <li>Prior Year / Amended Returns (Form 1040-X)</li>
-            <li>LLC, S-Corp & Partnership Returns</li>
+            <li>IRS Audit Representation</li>
+            <li>Back Tax Negotiation &amp; Payment Plans</li>
+            <li>Offer in Compromise Evaluation</li>
+            <li>Penalty Abatement Requests</li>
+            <li>IRS Notices &amp; Letters Response</li>
+            <li>Tax Liens &amp; Levies Assistance</li>
           </ul>
         </div>
-      </div>
 
-      <!-- IRS Problem Resolution -->
-      <div class="service-card">
-        <span class="service-icon">🏛️</span>
-        <h3>IRS Problem Resolution</h3>
-        <p>Facing an audit, back taxes, or an IRS notice? We advocate on your behalf, navigate the process, and work toward the best possible resolution.</p>
-        <ul>
-          <li>IRS Audit Representation</li>
-          <li>Back Tax Negotiation & Installment Agreements</li>
-          <li>Offer in Compromise Evaluation</li>
-          <li>Penalty Abatement Requests</li>
-          <li>IRS Notices & Letters Response</li>
-          <li>Tax Liens & Levies Assistance</li>
-        </ul>
-      </div>
+        <!-- Bookkeeping -->
+        <div class="service-card">
+          <span class="service-icon">📊</span>
+          <h3>Bookkeeping Services</h3>
+          <p>Clean books are the foundation of smart business decisions. Organized, accurate records so you always know where you stand.</p>
+          <ul>
+            <li>Monthly Bookkeeping &amp; Reconciliation</li>
+            <li>Profit &amp; Loss Statements</li>
+            <li>Accounts Payable &amp; Receivable</li>
+            <li>Payroll Records Organization</li>
+            <li>Year-End Financial Summary</li>
+            <li>QuickBooks Assistance</li>
+          </ul>
+        </div>
 
-      <!-- Bookkeeping -->
-      <div class="service-card">
-        <span class="service-icon">📊</span>
-        <h3>Bookkeeping Services</h3>
-        <p>Clean books are the foundation of smart business decisions. We provide organized, accurate bookkeeping so you always know where you stand financially.</p>
-        <ul>
-          <li>Monthly Bookkeeping & Reconciliation</li>
-          <li>Profit & Loss Statements</li>
-          <li>Accounts Payable & Receivable</li>
-          <li>Payroll Records Organization</li>
-          <li>Year-End Financial Summary</li>
-          <li>QuickBooks Assistance</li>
-        </ul>
-      </div>
+        <!-- Tax Planning -->
+        <div class="service-card">
+          <span class="service-icon">💡</span>
+          <h3>Tax Planning &amp; Financial Guidance</h3>
+          <p>Don't just react to tax season — plan for it. Forward-looking strategies to reduce your tax burden year-round.</p>
+          <ul>
+            <li>Year-Round Tax Strategy</li>
+            <li>Estimated Quarterly Tax Calculations</li>
+            <li>Business Structure Advisory</li>
+            <li>Retirement Contribution Optimization</li>
+            <li>Investment &amp; Capital Gains Planning</li>
+            <li>New Business Financial Setup</li>
+          </ul>
+        </div>
 
-      <!-- Financial Planning -->
-      <div class="service-card">
-        <span class="service-icon">💡</span>
-        <h3>Tax Planning & Financial Guidance</h3>
-        <p>Don't just react to tax season — plan for it. We provide forward-looking strategies to reduce your tax burden year-round and help you build lasting financial stability.</p>
-        <ul>
-          <li>Year-Round Tax Planning Strategy</li>
-          <li>Estimated Quarterly Tax Calculations</li>
-          <li>Business Structure Advisory (LLC vs S-Corp etc.)</li>
-          <li>Retirement Contribution Optimization</li>
-          <li>Investment & Capital Gains Planning</li>
-          <li>New Business Financial Setup</li>
-        </ul>
-      </div>
+        <!-- Notary -->
+        <div class="service-card">
+          <span class="service-icon">🔏</span>
+          <h3>Notary Public Services</h3>
+          <p>Convenient notarization for legal documents, affidavits, contracts, real estate documents, and more — by appointment.</p>
+          <ul>
+            <li>Affidavits &amp; Sworn Statements</li>
+            <li>Real Estate &amp; Loan Documents</li>
+            <li>Powers of Attorney</li>
+            <li>Business Contracts</li>
+            <li>Immigration Documents</li>
+            <li>General Legal Notarization</li>
+          </ul>
+        </div>
 
-      <!-- Notary -->
-      <div class="service-card">
-        <span class="service-icon">🔏</span>
-        <h3>Notary Public Services</h3>
-        <p>Convenient notarization for legal documents, affidavits, contracts, real estate documents, and more — available as part of your visit or by appointment.</p>
-        <ul>
-          <li>Affidavits & Sworn Statements</li>
-          <li>Real Estate & Loan Documents</li>
-          <li>Powers of Attorney</li>
-          <li>Business Contracts</li>
-          <li>Immigration Documents</li>
-          <li>General Legal Document Notarization</li>
-        </ul>
-      </div>
+        <!-- ITIN -->
+        <div class="service-card">
+          <span class="service-icon">🌐</span>
+          <h3>ITIN Applications &amp; Renewals</h3>
+          <p>We assist non-U.S. citizens in obtaining or renewing ITINs, ensuring proper tax compliance regardless of immigration status.</p>
+          <ul>
+            <li>ITIN Application (Form W-7)</li>
+            <li>ITIN Renewal Assistance</li>
+            <li>Document Review &amp; Certification</li>
+            <li>Filing for Non-Resident Individuals</li>
+          </ul>
+        </div>
 
-      <!-- ITIN -->
-      <div class="service-card">
-        <span class="service-icon">🌐</span>
-        <h3>ITIN Applications & Renewals</h3>
-        <p>We assist non-U.S. citizens and residents in obtaining or renewing their Individual Taxpayer Identification Numbers (ITIN), ensuring proper tax compliance regardless of immigration status.</p>
-        <ul>
-          <li>ITIN Application (Form W-7)</li>
-          <li>ITIN Renewal Assistance</li>
-          <li>Document Review & Certification</li>
-          <li>Filing for Non-Resident Individuals</li>
-        </ul>
       </div>
-
     </div>
 
-    <!-- ── CTA / PRICING NOTE ── -->
-    <div class="pricing-note">
+    <!-- ── CTA GLASS PANEL ── -->
+    <div class="glass-panel cta-panel">
       <h3>Ready to Get Started?</h3>
-      <p>Every situation is unique. Schedule a free consultation and we'll walk through your needs together — no pressure, no hidden fees. Pricing is transparent and tailored to the complexity of your return.</p>
+      <p>Every situation is unique. Schedule a free consultation and we'll walk through your needs together — no pressure, no hidden fees. Pricing is transparent and tailored to your situation.</p>
       <a href="contact.html" class="cta-btn">Schedule a Free Consultation</a>
     </div>
 
-  </section>
+  </div>
 
-  <!-- FOOTER injected by template.js -->
   <div id="footer-placeholder"></div>
-
   <script src="template.js"></script>
+
 </body>
 </html>
