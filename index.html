@@ -38,8 +38,8 @@
       <p>I will guide you step-by-step through your tax intake. This information is encrypted and secure.</p>
       <p>Are you ready to start your 2025 tax intake?</p>
       <div class="input-area">
-        <input type="text" placeholder="Type your response...">
-        <button>Send</button>
+        <input type="text" id="userInput" placeholder="Type your response...">
+        <button id="sendBtn">Send</button>
       </div>
     </div>
   </section>
@@ -53,15 +53,14 @@
 
   <script>
     // ── Hamburger ──
-    const btn = document.getElementById("hamburger");
-    const nav = document.getElementById("mainNav");
+    const btn  = document.getElementById("hamburger");
+    const nav  = document.getElementById("mainNav");
     const card = document.getElementById("draggableCard");
 
     btn.addEventListener("click", function () {
       const isOpening = !btn.classList.contains("open");
       btn.classList.toggle("open");
       nav.classList.toggle("open");
-      // Hide/show intake card so menu is visible on mobile
       card.style.visibility = isOpening ? "hidden" : "visible";
       card.style.opacity    = isOpening ? "0" : "1";
     });
@@ -75,7 +74,27 @@
       });
     });
 
+    // ── Send button handler ──
+    const userInput = document.getElementById("userInput");
+    const sendBtn   = document.getElementById("sendBtn");
+
+    function handleSend() {
+      const val = userInput.value.trim();
+      if (!val) return;
+      console.log("User said:", val);
+      // TODO: plug in your chatbot logic here
+      userInput.value = "";
+    }
+
+    sendBtn.addEventListener("click", handleSend);
+    userInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") handleSend();
+    });
+
     // ── Drag (mouse + touch) ──
+    // Exclude interactive elements so clicks/typing still work
+    const DRAG_EXCLUDE = ["INPUT", "BUTTON", "TEXTAREA", "SELECT", "A"];
+
     const hero = card.parentElement;
     let isDragging = false, offsetX, offsetY;
 
@@ -96,16 +115,23 @@
 
     function endDrag() { isDragging = false; }
 
-    card.addEventListener("mousedown",  function(e) { startDrag(e.clientX, e.clientY); e.preventDefault(); });
+    card.addEventListener("mousedown", function(e) {
+      if (DRAG_EXCLUDE.includes(e.target.tagName)) return; // let clicks through
+      startDrag(e.clientX, e.clientY);
+      e.preventDefault(); // only prevent default when actually dragging
+    });
+
     document.addEventListener("mousemove", function(e) { moveDrag(e.clientX, e.clientY); });
     document.addEventListener("mouseup",   endDrag);
 
     card.addEventListener("touchstart", function(e) {
+      if (DRAG_EXCLUDE.includes(e.target.tagName)) return; // allow keyboard on input
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
-      e.preventDefault();
-    }, { passive: false });
+      // NOTE: no e.preventDefault() here so mobile keyboard can open on input
+    }, { passive: true });
 
     document.addEventListener("touchmove", function(e) {
+      if (!isDragging) return;
       moveDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive: false });
