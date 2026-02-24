@@ -1,7 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UT<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlos Olivencia Tax Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- TEMPLATE HEADER INJECTS HERE -->
+<div id="site-header"></div>
+
+<main style="min-height:70vh; position:relative;">
+
+    <div class="chatbot" id="chatbot">
+        <h3>Tax Intake Assistant</h3>
+        <div id="chat-content"></div>
+    </div>
+
+</main>
+
+<!-- TEMPLATE FOOTER INJECTS HERE -->
+<div id="site-footer"></div>
+
+<script src="template.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+const steps=[
+{q:"What is your full name?",type:"text"},
+{q:"What is your filing status?",type:"select",options:["Single","Married Filing Jointly","Married Filing Separately","Head of Household"]},
+{q:"Do you have dependents?",type:"select",options:["Yes","No"]},
+{q:"Primary income type?",type:"select",options:["W2","1099","Business","Multiple"]},
+{q:"Did you receive unemployment?",type:"select",options:["Yes","No"]},
+{q:"Did you pay student loans?",type:"select",options:["Yes","No"]},
+{q:"Did you have health insurance all year?",type:"select",options:["Yes","No"]},
+{q:"State of residence?",type:"text"},
+{q:"Email address?",type:"text"},
+{q:"Phone number?",type:"text"},
+{q:"Preferred appointment type?",type:"select",options:["Virtual","In Person","Drop Off"]},
+{q:"Any additional notes?",type:"text"}
+];
+
+let currentStep=0;
+const answers={};
+const chatContent=document.getElementById("chat-content");
+
+function renderStep(){
+chatContent.innerHTML="";
+const step=steps[currentStep];
+
+const question=document.createElement("div");
+question.textContent=step.q;
+chatContent.appendChild(question);
+
+if(step.type==="text"){
+const input=document.createElement("input");
+input.type="text";
+chatContent.appendChild(input);
+
+const btn=document.createElement("button");
+btn.textContent="Next";
+btn.onclick=()=>{
+answers[currentStep]=input.value;
+nextStep();
+};
+chatContent.appendChild(btn);
+}
+
+if(step.type==="select"){
+const select=document.createElement("select");
+step.options.forEach(opt=>{
+const option=document.createElement("option");
+option.value=opt;
+option.textContent=opt;
+select.appendChild(option);
+});
+chatContent.appendChild(select);
+
+const btn=document.createElement("button");
+btn.textContent="Next";
+btn.onclick=()=>{
+answers[currentStep]=select.value;
+nextStep();
+};
+chatContent.appendChild(btn);
+}
+}
+
+function nextStep(){
+currentStep++;
+if(currentStep<steps.length){
+renderStep();
+}else{
+chatContent.innerHTML="<strong>Thank you. We will contact you shortly.</strong>";
+console.log("Collected Answers:",answers);
+}
+}
+
+renderStep();
+
+});
+</script>
+
+</body>
+</html>F-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carlos Olivencia Tax Services</title>
 
