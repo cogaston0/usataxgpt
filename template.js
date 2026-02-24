@@ -1,36 +1,271 @@
-document.addEventListener("DOMContentLoaded", function() {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Carlos Olivencia Tax Services</title>
 
-    const header = `
-        <header>
-            <div class="logo-container">
-                <img src="logo.png" alt="Carlos Olivencia Logo" class="logo">
-            </div>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="services.html">Services</a>
-                <a href="contact.html">Contact</a>
-                <a href="login.html">Login</a>
-                <a href="register.html">Register</a>
-            </nav>
-        </header>
-    `;
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+<link rel="apple-touch-icon" href="logo.png">
 
-    const footer = `
-        <footer>
-            <p>© 2026 Carlos Olivencia Tax Services — All Rights Reserved</p>
-        </footer>
-    `;
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 
-    const headerContainer = document.getElementById("site-header");
-    const footerContainer = document.getElementById("site-footer");
+<style>
 
-    if (headerContainer) {
-        headerContainer.innerHTML = header;
+/* Remove body background for this page only */
+body[data-page="about"] {
+    background: none !important;
+}
+
+/* Fixed Krishna Background */
+.krishna-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url("krsna.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+/* Ensure content above background */
+.page-body {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== About Layout ===== */
+
+.about-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+}
+
+.about-wrapper h1 {
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: #f2c94c;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.about-subtitle {
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #e6d6a8;
+    margin-bottom: 40px;
+}
+
+.gold-line {
+    border: none;
+    border-top: 1px solid rgba(242,201,76,0.4);
+    margin: 0 auto 40px;
+    width: 120px;
+}
+
+.profile-card,
+.mission-card,
+.value-card {
+    background: rgba(30, 36, 48, 0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.profile-card {
+    padding: 40px;
+    display: flex;
+    gap: 35px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #f2c94c;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2c94c;
+    font-size: 12px;
+    text-align: center;
+}
+
+.profile-info h2 {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: #f2c94c;
+    margin-bottom: 6px;
+}
+
+.profile-info .role {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #e6d6a8;
+    margin-bottom: 20px;
+}
+
+.credential {
+    display: inline-block;
+    background: rgba(242,201,76,0.12);
+    border: 1px solid rgba(242,201,76,0.3);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: #f2c94c;
+    margin-bottom: 8px;
+    margin-right: 8px;
+}
+
+.mission-card {
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+.mission-card h3 {
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    color: #f2c94c;
+    margin-bottom: 25px;
+}
+
+.mission-card p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #f3e8c8;
+    margin-bottom: 16px;
+}
+
+.mission-card p.closing {
+    color: #f2c94c;
+    font-style: italic;
+    border-top: 1px solid rgba(242,201,76,0.2);
+    padding-top: 18px;
+    margin-bottom: 0;
+}
+
+.values-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.value-card {
+    padding: 28px 20px;
+    text-align: center;
+}
+
+.value-card .icon {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.value-card h4 {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #f2c94c;
+    margin-bottom: 8px;
+}
+
+.value-card p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #e6d6a8;
+}
+
+/* ===== Mobile Fix ===== */
+
+@media (max-width: 768px) {
+
+    .krishna-bg {
+        background-size: cover;
+        background-position: center 20%;
     }
 
-    if (footerContainer) {
-        footerContainer.innerHTML = footer;
+    .about-wrapper {
+        padding: 30px 20px 60px;
     }
 
-});
+    .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .values-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+
+<body data-page="about">
+
+<div class="krishna-bg"></div>
+
+<!-- Header injected by template.js -->
+<div id="site-header"></div>
+
+<div class="page-body standard">
+<div class="about-wrapper">
+
+<h1>About Us</h1>
+<p class="about-subtitle">Tax Professional & Financial Advisor</p>
+<hr class="gold-line">
+
+<div class="profile-card">
+<div class="profile-photo">Photo<br>Coming<br>Soon</div>
+<div class="profile-info">
+<h2>Carlos Olivencia</h2>
+<p class="role">Tax Professional & Financial Advisor</p>
+<span class="credential">✦ Master's Degree in Taxation</span>
+<span class="credential">✦ IRS Filing Season Certificate</span>
+</div>
+</div>
+
+<div class="mission-card">
+<h3>Our Mission</h3>
+<p>Financial clarity is the foundation of a peaceful life.</p>
+<p class="closing">Your peace of mind is our purpose.</p>
+</div>
+
+<div class="values-row">
+<div class="value-card">
+<div class="icon">⚖️</div>
+<h4>Integrity</h4>
+<p>Complete honesty and transparency.</p>
+</div>
+<div class="value-card">
+<div class="icon">🤝</div>
+<h4>Personal Touch</h4>
+<p>Every client is treated individually.</p>
+</div>
+<div class="value-card">
+<div class="icon">🎯</div>
+<h4>Expertise</h4>
+<p>Advanced training and IRS credentials.</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- Footer injected by template.js -->
+<div id="site-footer"></div>
+
+<script src="template.js"></script>
+
+</body>
+</html>
