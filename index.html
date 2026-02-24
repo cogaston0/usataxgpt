@@ -139,8 +139,6 @@
     </div>
   </section>
 
-  <!-- template.js injects header + footer + hamburger -->
-  <script src="template.js"></script>
 
   <script>
     var STEPS = [
@@ -201,7 +199,7 @@
         type: "text",
         placeholder: "e.g. john@email.com",
         validate: function(v) { return v.indexOf("@") !== -1 ? null : "Please enter a valid email address."; },
-        next: 8
+        next: 9
       },
       {
         key: "income_types",
@@ -455,5 +453,6 @@
     document.addEventListener("touchend", function() { isDragging = false; });
   </script>
 
+  <script src="template.js"></script>
 </body>
 </html>
