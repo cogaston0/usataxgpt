@@ -9,23 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
 
-    /* ── FULL-PAGE KRISHNA BACKGROUND ── */
-    body {
-      background-image: url('krsna.png');
-      background-size: cover;
-      background-position: center top;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      min-height: 100vh;
-    }
-
-    /* iOS fix */
-    @supports (-webkit-touch-callout: none) {
-      body {
-        background-attachment: scroll;
-      }
-    }
-
     /* Dark overlay over entire page */
     body::before {
       content: '';
@@ -37,9 +20,9 @@
     }
 
     /* All content sits above overlay */
-    #nav-placeholder,
+    #site-header,
     .page-wrapper,
-    #footer-placeholder {
+    #site-footer {
       position: relative;
       z-index: 1;
     }
@@ -345,7 +328,8 @@
 </head>
 <body>
 
-  <div id="nav-placeholder"></div>
+  <!-- Header injected by template.js -->
+  <div id="site-header"></div>
 
   <div class="page-wrapper">
 
@@ -482,7 +466,9 @@
 
   </div>
 
-  <div id="footer-placeholder"></div>
+  <!-- Footer injected by template.js -->
+  <div id="site-footer"></div>
+
   <script src="template.js"></script>
 
 </body>
