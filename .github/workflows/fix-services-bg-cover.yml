@@ -1,0 +1,28 @@
+name: Fix Services Background Cover Mobile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-bg-cover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Inject full cover background fix for ALL pages on mobile
+        run: |
+          for file in *.html; do
+            echo "Fixing background in: $file"
+            sed -i 's|</head>|<style>\nhtml {\n  min-height: 100%;\n}\nbody {\n  min-height: 100vh;\n  background-size: cover !important;\n  background-repeat: no-repeat !important;\n  background-position: top center !important;\n  background-attachment: scroll !important;\n}\n@media only screen and (max-width: 768px) {\n  body {\n    background-size: cover !important;\n    background-attachment: scroll !important;\n    background-position: top center !important;\n    min-height: 100vh !important;\n    width: 100% !important;\n  }\n  html {\n    min-height: 100vh !important;\n    width: 100% !important;\n  }\n}\n</style>\n</head>|g' "$file"
+          done
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add *.html
+          git commit -m "Agent fix: Full cover background for all pages on iPhone/mobile" || echo "No changes"
+          git push
