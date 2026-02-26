@@ -1,0 +1,31 @@
+name: Fix Nav Text Bright White
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-nav:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Show current nav CSS (for debugging)
+        run: grep -n -i "nav\|color\|font" index.html | head -40
+
+      - name: Make ALL nav text pure white and bold with strong shadow
+        run: |
+          # Force nav links to white
+          sed -i 's/nav a[^{]*{/nav a {/g' index.html
+          # Add a style block override at the end of <head>
+          sed -i 's|</head>|<style>\nnav a, nav a:link, nav a:visited, nav a:hover, .nav-link, header a, .menu a {\n  color: #ffffff !important;\n  font-weight: bold !important;\n  text-shadow: 2px 2px 6px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.9) !important;\n  -webkit-text-stroke: 0.5px white !important;\n}\n</style>\n</head>|g' index.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add index.html
+          git commit -m "Agent fix: Force nav text pure white bold with strong shadow" || echo "No changes"
+          git push
