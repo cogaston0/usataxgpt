@@ -1,0 +1,89 @@
+name: Clean and Fix Background All Pages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clean-fix-bg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Show current state of each HTML file
+        run: |
+          for file in *.html; do
+            echo "=== $file ==="
+            grep -n "background\|</head>\|<style>" "$file" | head -50
+          done
+
+      - name: Remove ALL previous agent style injections
+        run: |
+          python3 << 'EOF'
+          import re, os, glob
+
+          for filepath in glob.glob("*.html"):
+              with open(filepath, "r") as f:
+                  content = f.read()
+              
+              # Remove all injected style blocks added by previous agents
+              content = re.sub(r'<style>\s*\n?@media only.*?</style>\s*\n?', '', content, flags=re.DOTALL)
+              content = re.sub(r'<style>\s*\n?html \{.*?</style>\s*\n?', '', content, flags=re.DOTALL)
+              content = re.sub(r'<style>\s*\n?body \{.*?</style>\s*\n?', '', content, flags=re.DOTALL)
+              content = re.sub(r'<style>\s*\n?nav a.*?</style>\s*\n?', '', content, flags=re.DOTALL)
+
+              with open(filepath, "w") as f:
+                  f.write(content)
+              print(f"Cleaned: {filepath}")
+          EOF
+
+      - name: Inject ONE clean fix for background and nav
+        run: |
+          python3 << 'EOF'
+          import glob
+
+          style = """<style>
+          /* Agent Clean Fix */
+          html, body {
+            min-height: 100vh;
+            width: 100%;
+            background-size: cover !important;
+            background-repeat: no-repeat !important;
+            background-position: top center !important;
+            background-attachment: scroll !important;
+          }
+          @media only screen and (max-width: 768px) {
+            html, body {
+              background-size: cover !important;
+              background-attachment: scroll !important;
+              background-position: top center !important;
+            }
+          }
+          nav a, nav a:link, nav a:visited, nav a:hover,
+          .nav-link, header a, .menu a {
+            color: #ffffff !important;
+            font-weight: bold !important;
+            text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
+          }
+          </style>
+          </head>"""
+
+          for filepath in glob.glob("*.html"):
+              with open(filepath, "r") as f:
+                  content = f.read()
+              if "</head>" in content:
+                  content = content.replace("</head>", style, 1)
+                  with open(filepath, "w") as f:
+                      f.write(content)
+                  print(f"Fixed: {filepath}")
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add *.html
+          git commit -m "Agent: Clean all old injections, apply one fresh fix" || echo "No changes"
+          git push
