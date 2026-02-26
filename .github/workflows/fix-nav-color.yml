@@ -1,0 +1,27 @@
+name: Fix Nav Text White
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-nav:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Make nav text bright white
+        run: |
+          sed -i 's/color: #c9a84c/color: #ffffff/g' index.html
+          sed -i 's/color: #gold/color: #ffffff/g' index.html
+          sed -i 's/nav a {/nav a { text-shadow: 2px 2px 4px rgba(0,0,0,0.9);/g' index.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add .
+          git commit -m "Agent fix: Make nav text bright white with shadow" || echo "No changes"
+          git push
