@@ -1,0 +1,27 @@
+name: Fix Krishna Background Position
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-background:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Fix background-position in all HTML files
+        run: |
+          sed -i 's/background-position: center center/background-position: top center/g' index.html
+          sed -i 's/background-position: center;/background-position: top center;/g' index.html
+          sed -i 's/background-position: 50% 50%/background-position: top center/g' index.html
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add index.html
+          git commit -m "Agent fix: Show full Krishna head and peacock feather" || echo "No changes to commit"
+          git push
