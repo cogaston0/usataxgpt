@@ -1,0 +1,25 @@
+name: Fix Services Mobile Background
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-mobile-bg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Inject mobile background fix into services.html
+        run: |
+          sed -i 's|</head>|<style>\n@media only screen and (max-width: 768px) {\n  body, html {\n    background-size: contain !important;\n    background-repeat: no-repeat !important;\n    background-position: top center !important;\n    background-attachment: scroll !important;\n  }\n}\n</style>\n</head>|g' services.html
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add services.html
+          git commit -m "Agent fix: Services page background size fixed for iPhone/mobile" || echo "No changes"
+          git push
