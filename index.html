@@ -6,6 +6,7 @@
   <title>Carlos Olivencia — Tax Division</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
   <style>
     /* ── Intake Chat Styles ── */
     .chat-log {
@@ -17,6 +18,7 @@
       gap: 8px;
       scroll-behavior: smooth;
     }
+
     .chat-msg {
       max-width: 85%;
       padding: 8px 12px;
@@ -24,6 +26,7 @@
       font-size: 0.88rem;
       line-height: 1.45;
     }
+
     .chat-msg.bot {
       background: rgba(201,168,76,0.18);
       border: 1px solid rgba(201,168,76,0.35);
@@ -31,16 +34,18 @@
       align-self: flex-start;
       border-bottom-left-radius: 3px;
     }
+
     .chat-msg.user {
       background: rgba(201,168,76,0.32);
       color: #fff;
       align-self: flex-end;
       border-bottom-right-radius: 3px;
     }
-    /* Progress bar */
+
     .progress-wrap {
       margin-bottom: 10px;
     }
+
     .progress-label {
       display: flex;
       justify-content: space-between;
@@ -48,12 +53,14 @@
       color: #ffffff;
       margin-bottom: 4px;
     }
+
     .progress-bar-bg {
       background: rgba(255,255,255,0.1);
       border-radius: 10px;
       height: 6px;
       overflow: hidden;
     }
+
     .progress-bar-fill {
       height: 100%;
       background: linear-gradient(90deg, #c9a84c, #f0d080);
@@ -61,13 +68,14 @@
       transition: width 0.4s ease;
       width: 0%;
     }
-    /* Quick-reply buttons */
+
     .quick-replies {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 8px;
     }
+
     .quick-btn {
       background: rgba(201,168,76,0.2);
       border: 1px solid #c9a84c;
@@ -78,65 +86,99 @@
       font-size: 0.8rem;
       transition: background 0.2s;
     }
+
     .quick-btn:hover {
       background: rgba(201,168,76,0.4);
       color: #fff;
     }
+
     .intake-done {
       text-align: center;
       color: #ffffff;
       font-size: 0.85rem;
       margin-top: 8px;
     }
+
+    /* Agent Clean Fix */
+    html, body {
+      min-height: 100vh;
+      width: 100%;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: top center !important;
+      background-attachment: scroll !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+      html, body {
+        background-size: cover !important;
+        background-attachment: scroll !important;
+        background-position: top center !important;
+      }
+    }
+
+    nav a, nav a:link, nav a:visited, nav a:hover,
+    .nav-link, header a, .menu a {
+      color: #ffffff !important;
+      font-weight: bold !important;
+      text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
+    }
+
+    /* ===== MOVING ROBOT AVATAR ===== */
+    .tax-avatar {
+      position: fixed;
+      right: 28px;
+      bottom: 95px;
+      width: 170px;
+      max-width: 22vw;
+      z-index: 50;
+      pointer-events: none;
+      user-select: none;
+      animation: avatarDrift 8s ease-in-out infinite;
+    }
+
+    .tax-avatar img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,0.35));
+      animation: avatarFloat 3.2s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    @keyframes avatarDrift {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(-12px, -8px);
+      }
+      50% {
+        transform: translate(-4px, -18px);
+      }
+      75% {
+        transform: translate(10px, -6px);
+      }
+    }
+
+    @keyframes avatarFloat {
+      0%, 100% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(-1.5deg) scale(1.02);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tax-avatar {
+        width: 105px;
+        right: 12px;
+        bottom: 85px;
+      }
+    }
   </style>
-<style>
-/* Agent Clean Fix */
-html, body {
-  min-height: 100vh;
-  width: 100%;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-position: top center !important;
-  background-attachment: scroll !important;
-}
-@media only screen and (max-width: 768px) {
-  html, body {
-    background-size: cover !important;
-    background-attachment: scroll !important;
-    background-position: top center !important;
-  }
-}
-nav a, nav a:link, nav a:visited, nav a:hover,
-.nav-link, header a, .menu a {
-  color: #ffffff !important;
-  font-weight: bold !important;
-  text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
-}
-</style>
-<style>
-/* Agent Clean Fix */
-html, body {
-  min-height: 100vh;
-  width: 100%;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-  background-position: top center !important;
-  background-attachment: scroll !important;
-}
-@media only screen and (max-width: 768px) {
-  html, body {
-    background-size: cover !important;
-    background-attachment: scroll !important;
-    background-position: top center !important;
-  }
-}
-nav a, nav a:link, nav a:visited, nav a:hover,
-.nav-link, header a, .menu a {
-  color: #ffffff !important;
-  font-weight: bold !important;
-  text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
-}
-</style>
 </head>
 
 <body data-page="home">
@@ -147,9 +189,11 @@ nav a, nav a:link, nav a:visited, nav a:hover,
       <div class="logo">
         <img src="logo.png" alt="Carlos Olivencia Logo">
       </div>
+
       <button class="hamburger" id="hamburger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
+
       <nav class="main-nav" id="mainNav">
         <a href="index.html" class="active">Home</a>
         <a href="services.html">Services</a>
@@ -191,6 +235,11 @@ nav a, nav a:link, nav a:visited, nav a:hover,
     </div>
   </section>
 
+  <!-- ===== MOVING AVATAR ===== -->
+  <div class="tax-avatar" aria-hidden="true">
+    <img src="robot-avatar.png" alt="Tax Assistant Avatar">
+  </div>
+
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     © 2025 Carlos Olivencia Tax &amp; Financial Services |
@@ -209,7 +258,7 @@ nav a, nav a:link, nav a:visited, nav a:hover,
       btn.classList.toggle("open");
       nav.classList.toggle("open");
       card.style.visibility = isOpening ? "hidden" : "visible";
-      card.style.opacity    = isOpening ? "0" : "1";
+      card.style.opacity = isOpening ? "0" : "1";
     });
 
     nav.querySelectorAll("a").forEach(function(link) {
@@ -217,7 +266,7 @@ nav a, nav a:link, nav a:visited, nav a:hover,
         btn.classList.remove("open");
         nav.classList.remove("open");
         card.style.visibility = "visible";
-        card.style.opacity    = "1";
+        card.style.opacity = "1";
       });
     });
 
@@ -230,32 +279,43 @@ nav a, nav a:link, nav a:visited, nav a:hover,
       offsetX = x - card.offsetLeft;
       offsetY = y - card.offsetTop;
     }
+
     function moveDrag(x, y) {
       if (!isDragging) return;
       const heroRect = hero.getBoundingClientRect();
-      let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width  - card.offsetWidth));
+      let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width - card.offsetWidth));
       let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
       card.style.left = newLeft + "px";
-      card.style.top  = newTop  + "px";
+      card.style.top  = newTop + "px";
     }
-    function endDrag() { isDragging = false; }
 
-    card.addEventListener("mousedown",  function(e) {
+    function endDrag() {
+      isDragging = false;
+    }
+
+    card.addEventListener("mousedown", function(e) {
       if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON") return;
-      startDrag(e.clientX, e.clientY); e.preventDefault();
+      startDrag(e.clientX, e.clientY);
+      e.preventDefault();
     });
-    document.addEventListener("mousemove", function(e) { moveDrag(e.clientX, e.clientY); });
-    document.addEventListener("mouseup",   endDrag);
+
+    document.addEventListener("mousemove", function(e) {
+      moveDrag(e.clientX, e.clientY);
+    });
+
+    document.addEventListener("mouseup", endDrag);
 
     card.addEventListener("touchstart", function(e) {
       if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON") return;
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive: false });
+
     document.addEventListener("touchmove", function(e) {
       moveDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive: false });
+
     document.addEventListener("touchend", endDrag);
 
     // ══════════════════════════════════════════
@@ -270,11 +330,8 @@ nav a, nav a:link, nav a:visited, nav a:hover,
     const progressStep = document.getElementById("progressStep");
     const progressPct  = document.getElementById("progressPct");
 
-    // Collected data object
     const intakeData = {};
 
-    // ── Steps definition ──
-    // type: "yesno" | "text" | "select" | "done"
     const steps = [
       {
         key: null,
@@ -310,7 +367,13 @@ nav a, nav a:link, nav a:visited, nav a:hover,
         label: "Filing Status",
         bot: "What is your filing status for 2024?",
         type: "select",
-        options: ["Single", "Married Filing Jointly", "Married Filing Separately", "Head of Household", "Qualifying Widow(er)"]
+        options: [
+          "Single",
+          "Married Filing Jointly",
+          "Married Filing Separately",
+          "Head of Household",
+          "Qualifying Widow(er)"
+        ]
       },
       {
         key: "dependents",
@@ -330,9 +393,16 @@ nav a, nav a:link, nav a:visited, nav a:hover,
       {
         key: "incomeTypes",
         label: "Income Types",
-        bot: "What types of income did you receive in 2024? (Select all that apply — type all that apply separated by commas)",
+        bot: "What types of income did you receive in 2024?",
         type: "select",
-        options: ["W-2 Employment", "Self-Employment / 1099", "Rental Income", "Investments / Dividends", "Social Security", "Other"]
+        options: [
+          "W-2 Employment",
+          "Self-Employment / 1099",
+          "Rental Income",
+          "Investments / Dividends",
+          "Social Security",
+          "Other"
+        ]
       },
       {
         key: "selfEmployed",
@@ -379,7 +449,12 @@ nav a, nav a:link, nav a:visited, nav a:hover,
         label: "Prior Year Result",
         bot: "Did you receive a refund or owe taxes last year?",
         type: "select",
-        options: ["Received a Refund", "Owed Taxes", "Broke Even", "Did Not File"]
+        options: [
+          "Received a Refund",
+          "Owed Taxes",
+          "Broke Even",
+          "Did Not File"
+        ]
       },
       {
         key: "additionalInfo",
@@ -396,7 +471,7 @@ nav a, nav a:link, nav a:visited, nav a:hover,
       }
     ];
 
-    const TOTAL_STEPS = steps.length - 1; // exclude welcome & done for progress
+    const TOTAL_STEPS = steps.length - 1;
     let currentStep = 0;
 
     function updateProgress(stepIndex) {
@@ -443,39 +518,50 @@ nav a, nav a:link, nav a:visited, nav a:hover,
 
       if (step.type === "yesno") {
         inputArea.style.display = "none";
+
         ["Yes", "No"].forEach(function(label) {
           const b = document.createElement("button");
           b.className = "quick-btn";
           b.textContent = label;
+
           b.addEventListener("click", function() {
             addMsg(label, "user");
             clearQuickReplies();
+
             if (step.key) intakeData[step.key] = label;
+
             if (label === "No" && step.noMsg) {
               inputArea.style.display = "none";
               addMsg(step.noMsg, "bot");
               updateProgress(TOTAL_STEPS);
               return;
             }
-            const next = label === "Yes" ? (step.yesNext !== undefined ? step.yesNext : index + 1)
-                                         : (step.noNext  !== undefined ? step.noNext  : index + 1);
+
+            const next = label === "Yes"
+              ? (step.yesNext !== undefined ? step.yesNext : index + 1)
+              : (step.noNext !== undefined ? step.noNext : index + 1);
+
             showStep(next);
           });
+
           quickReplies.appendChild(b);
         });
 
       } else if (step.type === "select") {
         inputArea.style.display = "none";
+
         step.options.forEach(function(opt) {
           const b = document.createElement("button");
           b.className = "quick-btn";
           b.textContent = opt;
+
           b.addEventListener("click", function() {
             addMsg(opt, "user");
             clearQuickReplies();
             intakeData[step.key] = opt;
             showStep(index + 1);
           });
+
           quickReplies.appendChild(b);
         });
 
@@ -490,8 +576,10 @@ nav a, nav a:link, nav a:visited, nav a:hover,
     function handleSend() {
       const val = userInput.value.trim();
       if (!val) return;
+
       const step = steps[currentStep];
       if (step.type !== "text") return;
+
       addMsg(val, "user");
       intakeData[step.key] = val;
       userInput.value = "";
@@ -499,11 +587,11 @@ nav a, nav a:link, nav a:visited, nav a:hover,
     }
 
     sendBtn.addEventListener("click", handleSend);
+
     userInput.addEventListener("keydown", function(e) {
       if (e.key === "Enter") handleSend();
     });
 
-    // ── Start ──
     showStep(0);
   </script>
 
