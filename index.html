@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* ── Intake Chat Styles ── */
     .chat-log {
       max-height: 220px;
       overflow-y: auto;
@@ -99,7 +98,6 @@
       margin-top: 8px;
     }
 
-    /* Agent Clean Fix */
     html, body {
       min-height: 100vh;
       width: 100%;
@@ -124,17 +122,16 @@
       text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
     }
 
-    /* ===== MOVING ROBOT AVATAR ===== */
     .tax-avatar {
       position: fixed;
-      right: 28px;
-      bottom: 95px;
+      top: 140px;
+      left: 40px;
       width: 170px;
       max-width: 22vw;
       z-index: 50;
       pointer-events: none;
       user-select: none;
-      animation: avatarDrift 8s ease-in-out infinite;
+      will-change: transform, top, left;
     }
 
     .tax-avatar img {
@@ -143,39 +140,24 @@
       height: auto;
       object-fit: contain;
       filter: drop-shadow(0 14px 24px rgba(0,0,0,0.35));
-      animation: avatarFloat 3.2s ease-in-out infinite;
+      animation: avatarFloat 2.8s ease-in-out infinite;
       transform-origin: center bottom;
-    }
-
-    @keyframes avatarDrift {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-      25% {
-        transform: translate(-12px, -8px);
-      }
-      50% {
-        transform: translate(-4px, -18px);
-      }
-      75% {
-        transform: translate(10px, -6px);
-      }
     }
 
     @keyframes avatarFloat {
       0%, 100% {
-        transform: rotate(0deg) scale(1);
+        transform: translateY(0px) rotate(0deg) scale(1);
       }
       50% {
-        transform: rotate(-1.5deg) scale(1.02);
+        transform: translateY(-10px) rotate(-1.5deg) scale(1.02);
       }
     }
 
     @media (max-width: 768px) {
       .tax-avatar {
-        width: 105px;
-        right: 12px;
-        bottom: 85px;
+        width: 95px;
+        top: 120px;
+        left: 12px;
       }
     }
   </style>
@@ -183,7 +165,6 @@
 
 <body data-page="home">
 
-  <!-- ===== HEADER ===== -->
   <header class="site-header">
     <div class="header-container">
       <div class="logo">
@@ -204,13 +185,11 @@
     </div>
   </header>
 
-  <!-- ===== HERO / INTAKE ===== -->
   <section class="hero">
     <div class="intake-card" id="draggableCard">
       <h2>Carlos Olivencia — Tax Intake</h2>
       <div class="secure">● Secure Connection Active</div>
 
-      <!-- Progress Bar -->
       <div class="progress-wrap">
         <div class="progress-label">
           <span id="progressStep">Getting Started</span>
@@ -221,13 +200,10 @@
         </div>
       </div>
 
-      <!-- Chat Log -->
       <div class="chat-log" id="chatLog"></div>
 
-      <!-- Quick Reply Buttons -->
       <div class="quick-replies" id="quickReplies"></div>
 
-      <!-- Input Area -->
       <div class="input-area" id="inputArea">
         <input type="text" id="userInput" placeholder="Type your response...">
         <button id="sendBtn">Send</button>
@@ -235,12 +211,10 @@
     </div>
   </section>
 
-  <!-- ===== MOVING AVATAR ===== -->
-  <div class="tax-avatar" aria-hidden="true">
-    <img src="robot-avatar.png" alt="Tax Assistant Avatar">
+  <div class="tax-avatar" id="taxAvatar" aria-hidden="true">
+    <img src="femaleOffice.png" alt="Tax Assistant Avatar">
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     © 2025 Carlos Olivencia Tax &amp; Financial Services |
     <a href="privacy.html">Privacy Policy</a> |
@@ -248,7 +222,6 @@
   </footer>
 
   <script>
-    // ── Hamburger ──
     const btn = document.getElementById("hamburger");
     const nav = document.getElementById("mainNav");
     const card = document.getElementById("draggableCard");
@@ -270,7 +243,6 @@
       });
     });
 
-    // ── Drag (mouse + touch) ──
     const hero = card.parentElement;
     let isDragging = false, offsetX, offsetY;
 
@@ -318,9 +290,6 @@
 
     document.addEventListener("touchend", endDrag);
 
-    // ══════════════════════════════════════════
-    // ── INTAKE CHATBOT ──
-    // ══════════════════════════════════════════
     const chatLog      = document.getElementById("chatLog");
     const quickReplies = document.getElementById("quickReplies");
     const inputArea    = document.getElementById("inputArea");
@@ -592,7 +561,60 @@
       if (e.key === "Enter") handleSend();
     });
 
-    showStep(0);
+    const avatar = document.getElementById("taxAvatar");
+    let posX = 40;
+    let posY = 140;
+    let velX = 1.4;
+    let velY = 0.8;
+
+    function moveAvatar() {
+      if (!avatar) return;
+
+      const avatarWidth = avatar.offsetWidth;
+      const avatarHeight = avatar.offsetHeight;
+      const maxX = window.innerWidth - avatarWidth;
+      const maxY = window.innerHeight - avatarHeight - 20;
+
+      posX += velX;
+      posY += velY;
+
+      if (posX <= 0) {
+        posX = 0;
+        velX *= -1;
+      }
+
+      if (posX >= maxX) {
+        posX = maxX;
+        velX *= -1;
+      }
+
+      if (posY <= 90) {
+        posY = 90;
+        velY *= -1;
+      }
+
+      if (posY >= maxY) {
+        posY = maxY;
+        velY *= -1;
+      }
+
+      avatar.style.left = posX + "px";
+      avatar.style.top = posY + "px";
+
+      requestAnimationFrame(moveAvatar);
+    }
+
+    window.addEventListener("load", function() {
+      showStep(0);
+      requestAnimationFrame(moveAvatar);
+    });
+
+    window.addEventListener("resize", function() {
+      const avatarWidth = avatar.offsetWidth;
+      const avatarHeight = avatar.offsetHeight;
+      posX = Math.min(posX, window.innerWidth - avatarWidth);
+      posY = Math.min(posY, window.innerHeight - avatarHeight - 20);
+    });
   </script>
 
 </body>
