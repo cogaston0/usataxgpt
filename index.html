@@ -128,10 +128,10 @@
       left: 40px;
       width: 170px;
       max-width: 22vw;
-      z-index: 50;
+      z-index: 99999;
       pointer-events: none;
       user-select: none;
-      will-change: transform, top, left;
+      will-change: top, left, transform;
     }
 
     .tax-avatar img {
@@ -201,7 +201,6 @@
       </div>
 
       <div class="chat-log" id="chatLog"></div>
-
       <div class="quick-replies" id="quickReplies"></div>
 
       <div class="input-area" id="inputArea">
@@ -211,8 +210,8 @@
     </div>
   </section>
 
-  <div class="tax-avatar" id="taxAvatar" aria-hidden="true">
-    <img src="femaleOffice.png" alt="Tax Assistant Avatar">
+  <div class="tax-avatar" id="taxAvatar">
+    <img src="femaleOffice.png" alt="">
   </div>
 
   <footer class="site-footer">
@@ -290,14 +289,14 @@
 
     document.addEventListener("touchend", endDrag);
 
-    const chatLog      = document.getElementById("chatLog");
+    const chatLog = document.getElementById("chatLog");
     const quickReplies = document.getElementById("quickReplies");
-    const inputArea    = document.getElementById("inputArea");
-    const userInput    = document.getElementById("userInput");
-    const sendBtn      = document.getElementById("sendBtn");
+    const inputArea = document.getElementById("inputArea");
+    const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
     const progressFill = document.getElementById("progressFill");
     const progressStep = document.getElementById("progressStep");
-    const progressPct  = document.getElementById("progressPct");
+    const progressPct = document.getElementById("progressPct");
 
     const intakeData = {};
 
@@ -473,16 +472,10 @@
         clearQuickReplies();
         inputArea.style.display = "none";
         addMsg("✅ Thank you, " + (intakeData.fullName || "valued client") + "! Your intake is complete. Carlos will review your information and contact you shortly to schedule your appointment.", "bot");
-        const summary = document.createElement("div");
-        summary.className = "intake-done";
-        summary.innerHTML = "📋 <strong>Summary saved.</strong> Check your email for confirmation.";
-        chatLog.appendChild(summary);
-        console.log("Intake Data:", intakeData);
         return;
       }
 
       if (step.bot) addMsg(step.bot, "bot");
-
       clearQuickReplies();
 
       if (step.type === "yesno") {
@@ -545,10 +538,8 @@
     function handleSend() {
       const val = userInput.value.trim();
       if (!val) return;
-
       const step = steps[currentStep];
       if (step.type !== "text") return;
-
       addMsg(val, "user");
       intakeData[step.key] = val;
       userInput.value = "";
