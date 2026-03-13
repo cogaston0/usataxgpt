@@ -14,7 +14,7 @@ jobs:
 
       - name: Inject white nav fix into ALL html pages
         run: |
-          for file in *.html; do
+          for file in *.html pages/*.html; do
             echo "Fixing nav in: $file"
             sed -i 's|</head>|<style>\nnav a, nav a:link, nav a:visited, nav a:hover, .nav-link, header a, .menu a {\n  color: #ffffff !important;\n  font-weight: bold !important;\n  text-shadow: 2px 2px 6px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.9) !important;\n  -webkit-text-stroke: 0.5px white !important;\n}\n</style>\n</head>|g' "$file"
           done
@@ -23,6 +23,6 @@ jobs:
         run: |
           git config user.name "GitHub Agent"
           git config user.email "agent@github.com"
-          git add *.html
+          git add *.html pages/*.html
           git commit -m "Agent fix: White nav text applied to ALL pages" || echo "No changes"
           git push

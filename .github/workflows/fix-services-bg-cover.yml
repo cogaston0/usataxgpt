@@ -14,7 +14,7 @@ jobs:
 
       - name: Inject full cover background fix for ALL pages on mobile
         run: |
-          for file in *.html; do
+          for file in *.html pages/*.html; do
             echo "Fixing background in: $file"
             sed -i 's|</head>|<style>\nhtml {\n  min-height: 100%;\n}\nbody {\n  min-height: 100vh;\n  background-size: cover !important;\n  background-repeat: no-repeat !important;\n  background-position: top center !important;\n  background-attachment: scroll !important;\n}\n@media only screen and (max-width: 768px) {\n  body {\n    background-size: cover !important;\n    background-attachment: scroll !important;\n    background-position: top center !important;\n    min-height: 100vh !important;\n    width: 100% !important;\n  }\n  html {\n    min-height: 100vh !important;\n    width: 100% !important;\n  }\n}\n</style>\n</head>|g' "$file"
           done
@@ -23,6 +23,6 @@ jobs:
         run: |
           git config user.name "GitHub Agent"
           git config user.email "agent@github.com"
-          git add *.html
+          git add *.html pages/*.html
           git commit -m "Agent fix: Full cover background for all pages on iPhone/mobile" || echo "No changes"
           git push
