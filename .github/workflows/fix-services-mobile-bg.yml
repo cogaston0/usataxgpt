@@ -14,12 +14,12 @@ jobs:
 
       - name: Inject mobile background fix into services.html
         run: |
-          sed -i 's|</head>|<style>\n@media only screen and (max-width: 768px) {\n  body, html {\n    background-size: contain !important;\n    background-repeat: no-repeat !important;\n    background-position: top center !important;\n    background-attachment: scroll !important;\n  }\n}\n</style>\n</head>|g' services.html
+          sed -i 's|</head>|<style>\n@media only screen and (max-width: 768px) {\n  body, html {\n    background-size: contain !important;\n    background-repeat: no-repeat !important;\n    background-position: top center !important;\n    background-attachment: scroll !important;\n  }\n}\n</style>\n</head>|g' pages/services.html
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Agent"
           git config user.email "agent@github.com"
-          git add services.html
+          git add pages/services.html
           git commit -m "Agent fix: Services page background size fixed for iPhone/mobile" || echo "No changes"
           git push

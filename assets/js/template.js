@@ -4,13 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <header class="site-header">
             <div class="header-container">
                 <div class="logo">
-                    <img src="logo.png" alt="Carlos Olivencia Logo">
+                    <img src="../assets/images/logo.png" alt="Carlos Olivencia Logo">
                 </div>
                 <button class="hamburger" id="hamburger" aria-label="Open menu">
                     <span></span><span></span><span></span>
                 </button>
                 <nav class="main-nav" id="mainNav">
-                    <a href="index.html">Home</a>
+                    <a href="../index.html">Home</a>
                     <a href="services.html">Services</a>
                     <a href="about.html">About</a>
                     <a href="contact.html">Contact</a>
@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const footer = `
         <footer class="site-footer">
             <p>© 2026 Carlos Olivencia Tax &amp; Financial Services |
-            <a href="privacy.html">Privacy Policy</a> |
-            <a href="terms.html">Terms of Service</a></p>
+            <a href="../privacy.html">Privacy Policy</a> |
+            <a href="../terms.html">Terms of Service</a></p>
         </footer>
     `;
 
