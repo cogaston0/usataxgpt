@@ -124,40 +124,46 @@
 
     .tax-avatar {
       position: fixed;
-      top: 140px;
-      left: 40px;
+      bottom: 40px;
+      right: 40px;
       width: 170px;
-      max-width: 22vw;
+      height: 170px;
       z-index: 99999;
       pointer-events: none;
       user-select: none;
-      will-change: top, left, transform;
     }
 
-    .tax-avatar img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
+    /* Sprite sheet: femaleOffice_walk.png
+       8 frames × 170px wide × 170px tall = 1360px total width */
+    .avatar-sprite {
+      width: 170px;
+      height: 170px;
+      background-image: url('femaleOffice_walk.png');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 1360px 170px;
       filter: drop-shadow(0 14px 24px rgba(0,0,0,0.35));
-      animation: avatarFloat 2.8s ease-in-out infinite;
-      transform-origin: center bottom;
+      animation: avatarWalk 0.8s steps(8) infinite;
+      will-change: background-position;
     }
 
-    @keyframes avatarFloat {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg) scale(1);
-      }
-      50% {
-        transform: translateY(-10px) rotate(-1.5deg) scale(1.02);
-      }
+    @keyframes avatarWalk {
+      from { background-position: 0 0; }
+      to   { background-position: -1360px 0; }
     }
 
+    /* Mobile: scale to half of desktop dimensions (85px = 170px / 2, 680px = 1360px / 2) */
     @media (max-width: 768px) {
       .tax-avatar {
-        width: 95px;
-        top: 120px;
-        left: 12px;
+        width: 85px;
+        height: 85px;
+        bottom: 16px;
+        right: 10px;
+      }
+      .avatar-sprite {
+        width: 85px;
+        height: 85px;
+        background-size: 680px 85px;
       }
     }
   </style>
@@ -211,7 +217,7 @@
   </section>
 
   <div class="tax-avatar" id="taxAvatar">
-    <img src="femaleOffice.png" alt="">
+    <div class="avatar-sprite"></div>
   </div>
 
   <footer class="site-footer">
@@ -552,59 +558,8 @@
       if (e.key === "Enter") handleSend();
     });
 
-    const avatar = document.getElementById("taxAvatar");
-    let posX = 40;
-    let posY = 140;
-    let velX = 1.4;
-    let velY = 0.8;
-
-    function moveAvatar() {
-      if (!avatar) return;
-
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      const maxX = window.innerWidth - avatarWidth;
-      const maxY = window.innerHeight - avatarHeight - 20;
-
-      posX += velX;
-      posY += velY;
-
-      if (posX <= 0) {
-        posX = 0;
-        velX *= -1;
-      }
-
-      if (posX >= maxX) {
-        posX = maxX;
-        velX *= -1;
-      }
-
-      if (posY <= 90) {
-        posY = 90;
-        velY *= -1;
-      }
-
-      if (posY >= maxY) {
-        posY = maxY;
-        velY *= -1;
-      }
-
-      avatar.style.left = posX + "px";
-      avatar.style.top = posY + "px";
-
-      requestAnimationFrame(moveAvatar);
-    }
-
     window.addEventListener("load", function() {
       showStep(0);
-      requestAnimationFrame(moveAvatar);
-    });
-
-    window.addEventListener("resize", function() {
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      posX = Math.min(posX, window.innerWidth - avatarWidth);
-      posY = Math.min(posY, window.innerHeight - avatarHeight - 20);
     });
   </script>
 
