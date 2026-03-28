@@ -607,6 +607,32 @@
       posY = Math.min(posY, window.innerHeight - avatarHeight - 20);
     });
   </script>
+<script>
+(function(){
+  var avatar = document.querySelector('.avatar-walk') || document.querySelector('[class*="avatar"]');
+  if (!avatar) return;
+  var x = -170, dir = 1, frame = 0;
+  var sw = window.innerWidth;
+  function tick(){
+    frame++;
+    x += dir * 2.2;
+    var bob = Math.sin(frame * 0.25) * 6;
+    avatar.style.left = x + 'px';
+    avatar.style.bottom = (40 + bob) + 'px';
+    avatar.style.transform = dir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
+    if (x > sw + 20)  dir = -1;
+    if (x < -170)     dir =  1;
+    requestAnimationFrame(tick);
+  }
+  avatar.style.position = 'fixed';
+  avatar.style.zIndex   = '999';
+  avatar.style.width    = '140px';
+  avatar.style.transition = 'none';
+  avatar.style.animation  = 'none';
+  requestAnimationFrame(tick);
+})();
+</script>
+  
 
 </body>
 </html>
