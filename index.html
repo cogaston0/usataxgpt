@@ -161,6 +161,33 @@
       }
     }
   </style>
+
+  <style>
+#taxAvatar {
+  position: fixed;
+  bottom: 40px;
+  left: -170px;
+  width: 170px;
+  height: 170px;
+  background-image: url('femaleOffice_walk.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: auto 170px;
+  z-index: 999;
+  animation: walk 2s steps(8) infinite, walkAcross 18s linear infinite;
+}
+@keyframes walk {
+  from { background-position: 0 0; }
+  to { background-position: -1360px 0; }
+}
+@keyframes walkAcross {
+  0%   { left: -170px; transform: scaleX(1); }
+  47%  { left: calc(100vw + 20px); transform: scaleX(1); }
+  50%  { left: calc(100vw + 20px); transform: scaleX(-1); }
+  97%  { left: -170px; transform: scaleX(-1); }
+  100% { left: -170px; transform: scaleX(1); }
+}
+</style>
 </head>
 
 <body data-page="home">
