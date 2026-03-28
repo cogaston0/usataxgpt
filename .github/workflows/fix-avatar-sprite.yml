@@ -1,0 +1,76 @@
+name: Fix Avatar Sprite Animation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-sprite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Inject correct avatar CSS and HTML
+        run: |
+          python3 << 'EOF'
+          import re
+
+          with open("index.html", "r") as f:
+              content = f.read()
+
+          # Remove any old avatar style blocks
+          content = re.sub(r'<style>[^<]*avatar-walk[^<]*</style>', '', content, flags=re.DOTALL)
+
+          # The correct CSS — two animations on one element
+          avatar_css = """<style>
+          .avatar-walk {
+            position: fixed;
+            bottom: 60px;
+            left: -170px;
+            width: 170px;
+            height: 170px;
+            background-image: url('femaleOffice_walk.png');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            z-index: 999;
+            animation:
+              walk 0.8s steps(8) infinite,
+              walkAcross 18s linear infinite;
+          }
+          @keyframes walk {
+            from { background-position: 0 0; }
+            to   { background-position: -1360px 0; }
+          }
+          @keyframes walkAcross {
+            0%   { left: -170px;              transform: scaleX(1); }
+            47%  { left: calc(100vw + 20px);  transform: scaleX(1); }
+            50%  { left: calc(100vw + 20px);  transform: scaleX(-1); }
+            97%  { left: -170px;              transform: scaleX(-1); }
+            100% { left: -170px;              transform: scaleX(1); }
+          }
+          </style>"""
+
+          # Inject before </head>
+          content = content.replace("</head>", avatar_css + "\n</head>", 1)
+
+          # Make sure the div exists — remove old avatar elements first
+          content = re.sub(r'<img[^>]*avatar[^>]*>', '', content)
+          content = re.sub(r'<div[^>]*avatar-walk[^>]*>.*?</div>', '', content, flags=re.DOTALL)
+
+          # Add the div just after <body>
+          content = re.sub(r'(<body[^>]*>)', r'\1\n<div class="avatar-walk"></div>', content, count=1)
+
+          with open("index.html", "w") as f:
+              f.write(content)
+
+          print("Done — avatar sprite animation fixed.")
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Agent"
+          git config user.email "agent@github.com"
+          git add index.html
+          git commit -m "Fix: avatar sprite walk animation steps(8) + walkAcross" || echo "No changes"
+          git push
