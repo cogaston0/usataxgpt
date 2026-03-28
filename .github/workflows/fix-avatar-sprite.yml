@@ -55,7 +55,7 @@ jobs:
             background-size: auto 170px;
             z-index: 999;
             animation:
-              walk 0.8s steps(8) infinite,
+              walk 2s steps(8) infinite,
               walkAcross 18s linear infinite;
           }
           @keyframes walk {
