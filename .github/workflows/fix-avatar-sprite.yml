@@ -11,7 +11,7 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
 
-      - name: Fix avatar walking animation
+      - name: Fix avatar to use sprite sheet
         run: |
           python3 << 'EOF'
           import re
@@ -19,38 +19,59 @@ jobs:
           with open("index.html", "r") as f:
               content = f.read()
 
-          # Strip all previous avatar style injections
-          content = re.sub(r'<style>\s*\.avatar-walk.*?</style>', '', content, flags=re.DOTALL)
+          # Remove the JS script we added
+          content = re.sub(
+              r'\s*<script>\s*\(function\(\)\{.*?\}\)\(\);\s*</script>',
+              '', content, flags=re.DOTALL)
 
-          avatar_css = """<style>
-          .avatar-walk {
+          # Empty the taxAvatar div (remove any img inside)
+          content = re.sub(
+              r'(<div[^>]*id=["\']taxAvatar["\'][^>]*>).*?(</div>)',
+              r'\1\2', content, flags=re.DOTALL)
+
+          # Remove old #taxAvatar or .tax-avatar CSS
+          content = re.sub(
+              r'#taxAvatar\s*\{[^}]*\}', '', content, flags=re.DOTALL)
+          content = re.sub(
+              r'\.tax-avatar\s*\{[^}]*\}', '', content, flags=re.DOTALL)
+          content = re.sub(
+              r'@keyframes walk\s*\{[^}]*\}', '', content, flags=re.DOTALL)
+          content = re.sub(
+              r'@keyframes walkAcross\s*\{[^}]*\}', '', content, flags=re.DOTALL)
+          content = re.sub(
+              r'@keyframes walkBounce\s*\{[^}]*\}', '', content, flags=re.DOTALL)
+
+          # Inject clean sprite CSS before </head>
+          sprite_css = """<style>
+          #taxAvatar {
             position: fixed;
             bottom: 40px;
+            left: -170px;
+            width: 170px;
+            height: 170px;
+            background-image: url('femaleOffice_walk.png');
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            background-size: auto 170px;
             z-index: 999;
-            width: 140px;
-            height: auto;
             animation:
-              walkAcross 16s linear infinite,
-              walkBounce 0.4s ease-in-out infinite;
-            transform-origin: bottom center;
+              walk 0.8s steps(8) infinite,
+              walkAcross 18s linear infinite;
+          }
+          @keyframes walk {
+            from { background-position: 0 0; }
+            to   { background-position: -1360px 0; }
           }
           @keyframes walkAcross {
-            0%   { left: -160px;             transform: scaleX(1); }
+            0%   { left: -170px;             transform: scaleX(1); }
             47%  { left: calc(100vw + 20px); transform: scaleX(1); }
             50%  { left: calc(100vw + 20px); transform: scaleX(-1); }
-            97%  { left: -160px;             transform: scaleX(-1); }
-            100% { left: -160px;             transform: scaleX(1); }
-          }
-          @keyframes walkBounce {
-            0%   { margin-bottom: 0px;  }
-            25%  { margin-bottom: 8px;  }
-            50%  { margin-bottom: 0px;  }
-            75%  { margin-bottom: 8px;  }
-            100% { margin-bottom: 0px;  }
+            97%  { left: -170px;             transform: scaleX(-1); }
+            100% { left: -170px;             transform: scaleX(1); }
           }
           </style>"""
 
-          content = content.replace("</head>", avatar_css + "\n</head>", 1)
+          content = content.replace("</head>", sprite_css + "\n</head>", 1)
 
           with open("index.html", "w") as f:
               f.write(content)
@@ -64,5 +85,5 @@ jobs:
           git config user.email "agent@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/cogaston0/usataxgpt.git
           git add index.html
-          git commit -m "Fix: avatar walk bounce animation for natural walking look" || echo "No changes"
+          git commit -m "Fix: sprite sheet walk animation on taxAvatar" || echo "No changes"
           git push
