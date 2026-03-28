@@ -7,7 +7,7 @@ jobs:
   fix-sprite:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
 
@@ -22,7 +22,7 @@ jobs:
           # Remove any old avatar style blocks
           content = re.sub(r'<style>[^<]*avatar-walk[^<]*</style>', '', content, flags=re.DOTALL)
 
-          # The correct CSS — two animations on one element
+          # The correct CSS
           avatar_css = """<style>
           .avatar-walk {
             position: fixed;
@@ -43,34 +43,39 @@ jobs:
             to   { background-position: -1360px 0; }
           }
           @keyframes walkAcross {
-            0%   { left: -170px;              transform: scaleX(1); }
-            47%  { left: calc(100vw + 20px);  transform: scaleX(1); }
-            50%  { left: calc(100vw + 20px);  transform: scaleX(-1); }
-            97%  { left: -170px;              transform: scaleX(-1); }
-            100% { left: -170px;              transform: scaleX(1); }
+            0%   { left: -170px;             transform: scaleX(1); }
+            47%  { left: calc(100vw + 20px); transform: scaleX(1); }
+            50%  { left: calc(100vw + 20px); transform: scaleX(-1); }
+            97%  { left: -170px;             transform: scaleX(-1); }
+            100% { left: -170px;             transform: scaleX(1); }
           }
           </style>"""
 
-          # Inject before </head>
           content = content.replace("</head>", avatar_css + "\n</head>", 1)
 
-          # Make sure the div exists — remove old avatar elements first
+          # Remove old avatar elements
           content = re.sub(r'<img[^>]*avatar[^>]*>', '', content)
           content = re.sub(r'<div[^>]*avatar-walk[^>]*>.*?</div>', '', content, flags=re.DOTALL)
 
-          # Add the div just after <body>
+          # Add div after <body>
           content = re.sub(r'(<body[^>]*>)', r'\1\n<div class="avatar-walk"></div>', content, count=1)
 
           with open("index.html", "w") as f:
               f.write(content)
 
-          print("Done — avatar sprite animation fixed.")
+          print("Done.")
           EOF
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Agent"
           git config user.email "agent@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/cogaston0/usataxgpt.git
           git add index.html
-          git commit -m "Fix: avatar sprite walk animation steps(8) + walkAcross" || echo "No changes"
+          git commit -m "Fix: avatar sprite walk animation" || echo "No changes"
           git push
+```
+
+The key fix is this line in the commit step:
+```
+git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/cogaston0/usataxgpt.git
