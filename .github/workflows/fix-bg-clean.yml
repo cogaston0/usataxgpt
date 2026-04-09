@@ -14,7 +14,7 @@ jobs:
 
       - name: Show current state of each HTML file
         run: |
-          for file in *.html; do
+          for file in *.html pages/*.html; do
             echo "=== $file ==="
             grep -n "background\|</head>\|<style>" "$file" | head -50
           done
@@ -24,7 +24,7 @@ jobs:
           python3 << 'EOF'
           import re, os, glob
 
-          for filepath in glob.glob("*.html"):
+          for filepath in glob.glob("*.html") + glob.glob("pages/*.html"):
               with open(filepath, "r") as f:
                   content = f.read()
               
@@ -70,7 +70,7 @@ jobs:
           </style>
           </head>"""
 
-          for filepath in glob.glob("*.html"):
+          for filepath in glob.glob("*.html") + glob.glob("pages/*.html"):
               with open(filepath, "r") as f:
                   content = f.read()
               if "</head>" in content:
@@ -84,6 +84,6 @@ jobs:
         run: |
           git config user.name "GitHub Agent"
           git config user.email "agent@github.com"
-          git add *.html
+          git add *.html pages/*.html
           git commit -m "Agent: Clean all old injections, apply one fresh fix" || echo "No changes"
           git push
