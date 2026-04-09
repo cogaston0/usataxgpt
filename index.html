@@ -122,16 +122,22 @@
       text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
     }
 
+    /* ── Avatar: walks left↔right along the bottom of the viewport ── */
     .tax-avatar {
       position: fixed;
-      top: 140px;
-      left: 40px;
+      bottom: 60px;      /* stays above the footer */
+      left: 0;           /* initial x — overridden by JS each frame */
       width: 170px;
       max-width: 22vw;
-      z-index: 99999;
+      z-index: 18;       /* below intake card (z-index: 20) so it never covers it */
       pointer-events: none;
       user-select: none;
-      will-change: top, left, transform;
+      will-change: left, transform;
+    }
+
+    /* Flip the whole container when walking left */
+    .tax-avatar.facing-left {
+      transform: scaleX(-1);
     }
 
     .tax-avatar img {
@@ -140,24 +146,41 @@
       height: auto;
       object-fit: contain;
       filter: drop-shadow(0 14px 24px rgba(0,0,0,0.35));
-      animation: avatarFloat 2.8s ease-in-out infinite;
       transform-origin: center bottom;
+      /* Fallback bob animation — simulates walking steps with a single PNG.
+         Replace with the sprite-sheet animation below once walk frames exist. */
+      animation: walkBob 0.55s ease-in-out infinite;
     }
 
-    @keyframes avatarFloat {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg) scale(1);
-      }
-      50% {
-        transform: translateY(-10px) rotate(-1.5deg) scale(1.02);
-      }
+    /* ── Fallback: subtle bob while moving (single-PNG placeholder) ── */
+    @keyframes walkBob {
+      0%   { transform: translateY(0px)  rotate( 0.0deg); }
+      25%  { transform: translateY(-6px) rotate( 0.8deg); }
+      50%  { transform: translateY(0px)  rotate( 0.0deg); }
+      75%  { transform: translateY(-4px) rotate(-0.6deg); }
+      100% { transform: translateY(0px)  rotate( 0.0deg); }
     }
+
+    /* ── SPRITE SHEET SECTION (currently inactive) ───────────────────
+       Uncomment this block after adding assets/avatar/femaleOffice_walk.png
+       (170 px × frameHeight, 8 frames side-by-side, transparent background)
+
+    .tax-avatar.has-sprite img {
+      animation: walkSprite 0.8s steps(8) infinite;
+      width: 1360px;
+      max-width: none;
+    }
+
+    @keyframes walkSprite {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-1360px); }
+    }
+    ── END SPRITE SHEET SECTION ──────────────────────────────────── */
 
     @media (max-width: 768px) {
       .tax-avatar {
         width: 95px;
-        top: 120px;
-        left: 12px;
+        bottom: 40px;
       }
     }
   </style>
@@ -579,60 +602,105 @@
       if (e.key === "Enter") handleSend();
     });
 
-    const avatar = document.getElementById("taxAvatar");
-    let posX = 40;
-    let posY = 140;
-    let velX = 1.4;
-    let velY = 0.8;
-
-    function moveAvatar() {
-      if (!avatar) return;
-
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      const maxX = window.innerWidth - avatarWidth;
-      const maxY = window.innerHeight - avatarHeight - 20;
-
-      posX += velX;
-      posY += velY;
-
-      if (posX <= 0) {
-        posX = 0;
-        velX *= -1;
-      }
-
-      if (posX >= maxX) {
-        posX = maxX;
-        velX *= -1;
-      }
-
-      if (posY <= 90) {
-        posY = 90;
-        velY *= -1;
-      }
-
-      if (posY >= maxY) {
-        posY = maxY;
-        velY *= -1;
-      }
-
-      avatar.style.left = posX + "px";
-      avatar.style.top = posY + "px";
-
-      requestAnimationFrame(moveAvatar);
-    }
-
     window.addEventListener("load", function() {
       showStep(0);
-      requestAnimationFrame(moveAvatar);
     });
 
-    window.addEventListener("resize", function() {
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      posX = Math.min(posX, window.innerWidth - avatarWidth);
-      posY = Math.min(posY, window.innerHeight - avatarHeight - 20);
-    });
+    /* ─────────────────────────────────────────────────────────────────
+       AVATAR WALKING ENGINE
+       Currently uses a single-PNG fallback (walkBob CSS animation).
+       The avatar walks horizontally along the bottom of the viewport and
+       flips to face its direction of travel.
+
+       TO UPGRADE TO TRUE SPRITE-SHEET WALKING:
+         1. Add  assets/avatar/femaleOffice_walk.png  (see README in that folder)
+         2. Uncomment the SPRITE SHEET SECTION blocks in <style> and below.
+         3. Call  avatar.classList.add("has-sprite")  at startup.
+
+       TO UPGRADE TO INDIVIDUAL-FRAME WALKING:
+         1. Add  assets/avatar/femaleOffice_walk_01.png … _08.png
+         2. Uncomment the INDIVIDUAL FRAMES SECTION block below.
+    ───────────────────────────────────────────────────────────────── */
+    (function () {
+      var avatar    = document.getElementById("taxAvatar");
+      var avatarImg = avatar ? avatar.querySelector("img") : null;
+      if (!avatar || !avatarImg) return;
+
+      var avatarW0   = avatar.offsetWidth || 170;
+      var X_MARGIN   = 20;           /* px padding at each edge */
+      var posX       = Math.min(
+                         Math.max(X_MARGIN, window.innerWidth * 0.55),
+                         window.innerWidth - avatarW0 - X_MARGIN
+                       );
+      var velX       = 1.2;          /* px per animation frame */
+      var facingLeft = false;
+
+      function stepAvatar() {
+        /* Pause on hidden tabs to save CPU */
+        if (document.hidden) {
+          requestAnimationFrame(stepAvatar);
+          return;
+        }
+
+        var avatarW = avatar.offsetWidth || 170;
+        var maxX    = window.innerWidth  - avatarW - X_MARGIN;
+        var minX    = X_MARGIN;
+
+        posX += velX;
+
+        /* Bounce at left edge — face right */
+        if (posX <= minX) {
+          posX     = minX;
+          velX     = Math.abs(velX);
+          if (facingLeft) {
+            facingLeft = false;
+            avatar.classList.remove("facing-left");
+          }
+        }
+
+        /* Bounce at right edge — face left */
+        if (posX >= maxX) {
+          posX     = maxX;
+          velX     = -Math.abs(velX);
+          if (!facingLeft) {
+            facingLeft = true;
+            avatar.classList.add("facing-left");
+          }
+        }
+
+        avatar.style.left = posX + "px";
+        requestAnimationFrame(stepAvatar);
+      }
+
+      /* ── SPRITE SHEET SECTION ──────────────────────────────────────
+         Uncomment after adding assets/avatar/femaleOffice_walk.png
+
+      avatar.classList.add("has-sprite");
+      avatarImg.src = "assets/avatar/femaleOffice_walk.png";
+         ── END SPRITE SHEET SECTION ─────────────────────────────── */
+
+      /* ── INDIVIDUAL FRAMES SECTION ────────────────────────────────
+         Uncomment after adding assets/avatar/femaleOffice_walk_01.png…_08.png
+
+      var frames     = [];
+      var frameCount = 8;
+      for (var f = 1; f <= frameCount; f++) {
+        frames.push("assets/avatar/femaleOffice_walk_0" + f + ".png");
+      }
+      var frameIndex = 0;
+      setInterval(function () {
+        frameIndex = (frameIndex + 1) % frameCount;
+        avatarImg.src = frames[frameIndex];
+      }, 100);   // ~10 fps walking cycle
+         ── END INDIVIDUAL FRAMES SECTION ─────────────────────────── */
+
+      window.addEventListener("resize", function () {
+        var avatarW = avatar.offsetWidth || 170;
+        posX = Math.min(posX, window.innerWidth - avatarW - X_MARGIN);
+      });
+
+      requestAnimationFrame(stepAvatar);
+    }());
   </script>
 <script>
 (function(){
