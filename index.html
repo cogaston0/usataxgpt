@@ -114,42 +114,121 @@
       text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
     }
 
-    /* Restored original office avatar with walking-style motion */
-    #walkingAvatar {
+    /* Avatar wrapper: moves slowly across the screen without side-flipping */
+    #avatarWrap {
       position: fixed;
       bottom: 80px;
       left: -120px;
       width: 95px;
-      height: auto;
+      height: 150px;
       z-index: 9999;
       pointer-events: none;
       user-select: none;
       transform-origin: center bottom;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.45));
-      animation: officeAvatarWalk 20s linear infinite;
-      will-change: left, transform;
+      animation: avatarWalkSlow 32s linear infinite;
+      will-change: left, transform, opacity;
     }
 
-    @keyframes officeAvatarWalk {
-      0% { left: -120px; transform: translateY(0) rotate(-2deg) scaleX(1); }
-      6% { transform: translateY(-7px) rotate(2deg) scaleX(1); }
-      12% { transform: translateY(0) rotate(-2deg) scaleX(1); }
-      18% { transform: translateY(-7px) rotate(2deg) scaleX(1); }
-      24% { transform: translateY(0) rotate(-2deg) scaleX(1); }
-      30% { transform: translateY(-7px) rotate(2deg) scaleX(1); }
-      36% { transform: translateY(0) rotate(-2deg) scaleX(1); }
-      42% { transform: translateY(-7px) rotate(2deg) scaleX(1); }
-      48% { left: calc(100vw - 105px); transform: translateY(0) rotate(-2deg) scaleX(1); }
-      50% { left: calc(100vw - 105px); transform: translateY(0) rotate(0deg) scaleX(-1); }
-      56% { transform: translateY(-7px) rotate(2deg) scaleX(-1); }
-      62% { transform: translateY(0) rotate(-2deg) scaleX(-1); }
-      68% { transform: translateY(-7px) rotate(2deg) scaleX(-1); }
-      74% { transform: translateY(0) rotate(-2deg) scaleX(-1); }
-      80% { transform: translateY(-7px) rotate(2deg) scaleX(-1); }
-      86% { transform: translateY(0) rotate(-2deg) scaleX(-1); }
-      92% { transform: translateY(-7px) rotate(2deg) scaleX(-1); }
-      98% { left: -120px; transform: translateY(0) rotate(-2deg) scaleX(-1); }
-      100% { left: -120px; transform: translateY(0) rotate(-2deg) scaleX(1); }
+    #walkingAvatar {
+      display: block;
+      width: 95px;
+      height: auto;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.45));
+    }
+
+    /* Blink overlay */
+    .eye {
+      position: absolute;
+      top: 24px;
+      width: 9px;
+      height: 2px;
+      background: #2a1712;
+      border-radius: 50%;
+      opacity: 0;
+      animation: blinkEyes 4.5s infinite;
+    }
+
+    .eye-left {
+      left: 34px;
+    }
+
+    .eye-right {
+      left: 51px;
+    }
+
+    @keyframes blinkEyes {
+      0%, 92%, 100% {
+        opacity: 0;
+      }
+
+      94%, 97% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes avatarWalkSlow {
+      0% {
+        left: -120px;
+        opacity: 1;
+        transform: translateY(0) rotate(-1.5deg);
+      }
+
+      10% {
+        transform: translateY(-5px) rotate(1.5deg);
+      }
+
+      20% {
+        transform: translateY(0) rotate(-1.5deg);
+      }
+
+      30% {
+        transform: translateY(-5px) rotate(1.5deg);
+      }
+
+      40% {
+        transform: translateY(0) rotate(-1.5deg);
+      }
+
+      48% {
+        left: calc(100vw - 105px);
+        opacity: 1;
+        transform: translateY(-5px) rotate(1.5deg);
+      }
+
+      49% {
+        opacity: 0;
+      }
+
+      50% {
+        left: -120px;
+        opacity: 0;
+      }
+
+      54% {
+        opacity: 1;
+      }
+
+      60% {
+        transform: translateY(0) rotate(-1.5deg);
+      }
+
+      70% {
+        transform: translateY(-5px) rotate(1.5deg);
+      }
+
+      80% {
+        transform: translateY(0) rotate(-1.5deg);
+      }
+
+      90% {
+        transform: translateY(-5px) rotate(1.5deg);
+      }
+
+      100% {
+        left: calc(100vw - 105px);
+        opacity: 1;
+        transform: translateY(0) rotate(-1.5deg);
+      }
     }
 
     @media only screen and (max-width: 768px) {
@@ -160,9 +239,94 @@
         background-position: top center !important;
       }
 
+      #avatarWrap {
+        width: 72px;
+        height: 115px;
+        bottom: 75px;
+        animation: avatarWalkSlowMobile 34s linear infinite;
+      }
+
       #walkingAvatar {
         width: 72px;
-        bottom: 75px;
+      }
+
+      .eye {
+        top: 18px;
+        width: 7px;
+        height: 2px;
+      }
+
+      .eye-left {
+        left: 26px;
+      }
+
+      .eye-right {
+        left: 38px;
+      }
+
+      @keyframes avatarWalkSlowMobile {
+        0% {
+          left: -90px;
+          opacity: 1;
+          transform: translateY(0) rotate(-1.5deg);
+        }
+
+        10% {
+          transform: translateY(-4px) rotate(1.5deg);
+        }
+
+        20% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+
+        30% {
+          transform: translateY(-4px) rotate(1.5deg);
+        }
+
+        40% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+
+        48% {
+          left: calc(100vw - 82px);
+          opacity: 1;
+          transform: translateY(-4px) rotate(1.5deg);
+        }
+
+        49% {
+          opacity: 0;
+        }
+
+        50% {
+          left: -90px;
+          opacity: 0;
+        }
+
+        54% {
+          opacity: 1;
+        }
+
+        60% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+
+        70% {
+          transform: translateY(-4px) rotate(1.5deg);
+        }
+
+        80% {
+          transform: translateY(0) rotate(-1.5deg);
+        }
+
+        90% {
+          transform: translateY(-4px) rotate(1.5deg);
+        }
+
+        100% {
+          left: calc(100vw - 82px);
+          opacity: 1;
+          transform: translateY(0) rotate(-1.5deg);
+        }
       }
     }
   </style>
@@ -217,8 +381,12 @@
     </div>
   </section>
 
-  <!-- ORIGINAL OFFICE AVATAR RESTORED -->
-  <img id="walkingAvatar" src="femaleOffice.png" alt="Walking tax assistant avatar" />
+  <!-- ORIGINAL OFFICE AVATAR WITH BLINKING EYES -->
+  <div id="avatarWrap">
+    <img id="walkingAvatar" src="femaleOffice.png" alt="Walking tax assistant avatar" />
+    <div class="eye eye-left"></div>
+    <div class="eye eye-right"></div>
+  </div>
 
   <footer class="site-footer">
     © 2025 Carlos Olivencia Tax &amp; Financial Services |
