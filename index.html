@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carlos Olivencia — Tax Division</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 
   <style>
     .chat-log {
@@ -91,14 +92,8 @@
       color: #fff;
     }
 
-    .intake-done {
-      text-align: center;
-      color: #ffffff;
-      font-size: 0.85rem;
-      margin-top: 8px;
-    }
-
-    html, body {
+    html,
+    body {
       min-height: 100vh;
       width: 100%;
       background-size: cover !important;
@@ -107,87 +102,98 @@
       background-attachment: scroll !important;
     }
 
-    @media only screen and (max-width: 768px) {
-      html, body {
-        background-size: cover !important;
-        background-attachment: scroll !important;
-        background-position: top center !important;
-      }
-    }
-
-    nav a, nav a:link, nav a:visited, nav a:hover,
-    .nav-link, header a, .menu a {
+    nav a,
+    nav a:link,
+    nav a:visited,
+    nav a:hover,
+    .nav-link,
+    header a,
+    .menu a {
       color: #ffffff !important;
       font-weight: bold !important;
       text-shadow: 2px 2px 6px rgba(0,0,0,1) !important;
     }
 
-    .tax-avatar {
+    /* NEW WALKING AVATAR */
+    #walkingAvatar {
       position: fixed;
-      top: 140px;
-      left: 40px;
-      width: 170px;
-      max-width: 22vw;
-      z-index: 99999;
+      bottom: 80px;
+      left: -120px;
+      width: 95px;
+      height: auto;
+      z-index: 9999;
       pointer-events: none;
       user-select: none;
-      will-change: top, left, transform;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.45));
+      animation: avatarWalkAcross 22s linear infinite;
+      will-change: left, transform;
     }
 
-    .tax-avatar img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 14px 24px rgba(0,0,0,0.35));
-      animation: avatarFloat 2.8s ease-in-out infinite;
-      transform-origin: center bottom;
-    }
-
-    @keyframes avatarFloat {
-      0%, 100% {
-        transform: translateY(0px) rotate(0deg) scale(1);
+    @keyframes avatarWalkAcross {
+      0% {
+        left: -120px;
+        transform: translateY(0) scaleX(1);
       }
+
+      12% {
+        transform: translateY(-4px) scaleX(1);
+      }
+
+      24% {
+        transform: translateY(0) scaleX(1);
+      }
+
+      36% {
+        transform: translateY(-4px) scaleX(1);
+      }
+
+      48% {
+        left: calc(100vw - 100px);
+        transform: translateY(0) scaleX(1);
+      }
+
       50% {
-        transform: translateY(-10px) rotate(-1.5deg) scale(1.02);
+        left: calc(100vw - 100px);
+        transform: translateY(0) scaleX(-1);
+      }
+
+      62% {
+        transform: translateY(-4px) scaleX(-1);
+      }
+
+      74% {
+        transform: translateY(0) scaleX(-1);
+      }
+
+      86% {
+        transform: translateY(-4px) scaleX(-1);
+      }
+
+      98% {
+        left: -120px;
+        transform: translateY(0) scaleX(-1);
+      }
+
+      100% {
+        left: -120px;
+        transform: translateY(0) scaleX(1);
       }
     }
 
-    @media (max-width: 768px) {
-      .tax-avatar {
-        width: 95px;
-        top: 120px;
-        left: 12px;
+    @media only screen and (max-width: 768px) {
+      html,
+      body {
+        background-size: cover !important;
+        background-attachment: scroll !important;
+        background-position: top center !important;
+      }
+
+      #walkingAvatar {
+        width: 72px;
+        bottom: 75px;
       }
     }
   </style>
-
-  <style>
-#taxAvatar {
-  position: fixed;
-  bottom: 40px;
-  left: -170px;
-  width: 170px;
-  height: 170px;
-  background-image: url('femaleOffice_walk.png');
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: auto 170px;
-  z-index: 999;
-  animation: walk 2s steps(8) infinite, walkAcross 18s linear infinite;
-}
-@keyframes walk {
-  from { background-position: 0 0; }
-  to { background-position: -1360px 0; }
-}
-@keyframes walkAcross {
-  0%   { left: -170px; transform: scaleX(1); }
-  47%  { left: calc(100vw + 20px); transform: scaleX(1); }
-  50%  { left: calc(100vw + 20px); transform: scaleX(-1); }
-  97%  { left: -170px; transform: scaleX(-1); }
-  100% { left: -170px; transform: scaleX(1); }
-}
-</style>
 </head>
 
 <body data-page="home">
@@ -195,11 +201,13 @@
   <header class="site-header">
     <div class="header-container">
       <div class="logo">
-        <img src="logo.png" alt="Carlos Olivencia Logo">
+        <img src="logo.png" alt="Carlos Olivencia Logo" />
       </div>
 
       <button class="hamburger" id="hamburger" aria-label="Open menu">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
       <nav class="main-nav" id="mainNav">
@@ -231,15 +239,14 @@
       <div class="quick-replies" id="quickReplies"></div>
 
       <div class="input-area" id="inputArea">
-        <input type="text" id="userInput" placeholder="Type your response...">
+        <input type="text" id="userInput" placeholder="Type your response..." />
         <button id="sendBtn">Send</button>
       </div>
     </div>
   </section>
 
-  <div class="tax-avatar" id="taxAvatar">
-    <img src="femaleOffice.png" alt="">
-  </div>
+  <!-- WALKING AVATAR -->
+  <img id="walkingAvatar" src="femaleOffice.png" alt="Walking tax assistant avatar" />
 
   <footer class="site-footer">
     © 2025 Carlos Olivencia Tax &amp; Financial Services |
@@ -260,7 +267,7 @@
       card.style.opacity = isOpening ? "0" : "1";
     });
 
-    nav.querySelectorAll("a").forEach(function(link) {
+    nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
         btn.classList.remove("open");
         nav.classList.remove("open");
@@ -270,7 +277,9 @@
     });
 
     const hero = card.parentElement;
-    let isDragging = false, offsetX, offsetY;
+    let isDragging = false;
+    let offsetX;
+    let offsetY;
 
     function startDrag(x, y) {
       isDragging = true;
@@ -280,36 +289,38 @@
 
     function moveDrag(x, y) {
       if (!isDragging) return;
+
       const heroRect = hero.getBoundingClientRect();
       let newLeft = Math.max(0, Math.min(x - offsetX, heroRect.width - card.offsetWidth));
-      let newTop  = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
+      let newTop = Math.max(0, Math.min(y - offsetY, heroRect.height - card.offsetHeight));
+
       card.style.left = newLeft + "px";
-      card.style.top  = newTop + "px";
+      card.style.top = newTop + "px";
     }
 
     function endDrag() {
       isDragging = false;
     }
 
-    card.addEventListener("mousedown", function(e) {
+    card.addEventListener("mousedown", function (e) {
       if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON") return;
       startDrag(e.clientX, e.clientY);
       e.preventDefault();
     });
 
-    document.addEventListener("mousemove", function(e) {
+    document.addEventListener("mousemove", function (e) {
       moveDrag(e.clientX, e.clientY);
     });
 
     document.addEventListener("mouseup", endDrag);
 
-    card.addEventListener("touchstart", function(e) {
+    card.addEventListener("touchstart", function (e) {
       if (e.target.tagName === "INPUT" || e.target.tagName === "BUTTON") return;
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive: false });
 
-    document.addEventListener("touchmove", function(e) {
+    document.addEventListener("touchmove", function (e) {
       moveDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive: false });
@@ -508,12 +519,12 @@
       if (step.type === "yesno") {
         inputArea.style.display = "none";
 
-        ["Yes", "No"].forEach(function(label) {
+        ["Yes", "No"].forEach(function (label) {
           const b = document.createElement("button");
           b.className = "quick-btn";
           b.textContent = label;
 
-          b.addEventListener("click", function() {
+          b.addEventListener("click", function () {
             addMsg(label, "user");
             clearQuickReplies();
 
@@ -539,12 +550,12 @@
       } else if (step.type === "select") {
         inputArea.style.display = "none";
 
-        step.options.forEach(function(opt) {
+        step.options.forEach(function (opt) {
           const b = document.createElement("button");
           b.className = "quick-btn";
           b.textContent = opt;
 
-          b.addEventListener("click", function() {
+          b.addEventListener("click", function () {
             addMsg(opt, "user");
             clearQuickReplies();
             intakeData[step.key] = opt;
@@ -565,8 +576,10 @@
     function handleSend() {
       const val = userInput.value.trim();
       if (!val) return;
+
       const step = steps[currentStep];
       if (step.type !== "text") return;
+
       addMsg(val, "user");
       intakeData[step.key] = val;
       userInput.value = "";
@@ -575,91 +588,14 @@
 
     sendBtn.addEventListener("click", handleSend);
 
-    userInput.addEventListener("keydown", function(e) {
+    userInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") handleSend();
     });
 
-    const avatar = document.getElementById("taxAvatar");
-    let posX = 40;
-    let posY = 140;
-    let velX = 1.4;
-    let velY = 0.8;
-
-    function moveAvatar() {
-      if (!avatar) return;
-
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      const maxX = window.innerWidth - avatarWidth;
-      const maxY = window.innerHeight - avatarHeight - 20;
-
-      posX += velX;
-      posY += velY;
-
-      if (posX <= 0) {
-        posX = 0;
-        velX *= -1;
-      }
-
-      if (posX >= maxX) {
-        posX = maxX;
-        velX *= -1;
-      }
-
-      if (posY <= 90) {
-        posY = 90;
-        velY *= -1;
-      }
-
-      if (posY >= maxY) {
-        posY = maxY;
-        velY *= -1;
-      }
-
-      avatar.style.left = posX + "px";
-      avatar.style.top = posY + "px";
-
-      requestAnimationFrame(moveAvatar);
-    }
-
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
       showStep(0);
-      requestAnimationFrame(moveAvatar);
-    });
-
-    window.addEventListener("resize", function() {
-      const avatarWidth = avatar.offsetWidth;
-      const avatarHeight = avatar.offsetHeight;
-      posX = Math.min(posX, window.innerWidth - avatarWidth);
-      posY = Math.min(posY, window.innerHeight - avatarHeight - 20);
     });
   </script>
-<script>
-(function(){
-  var avatar = document.querySelector('.avatar-walk') || document.querySelector('[class*="avatar"]');
-  if (!avatar) return;
-  var x = -170, dir = 1, frame = 0;
-  var sw = window.innerWidth;
-  function tick(){
-    frame++;
-    x += dir * 2.2;
-    var bob = Math.sin(frame * 0.25) * 6;
-    avatar.style.left = x + 'px';
-    avatar.style.bottom = (40 + bob) + 'px';
-    avatar.style.transform = dir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
-    if (x > sw + 20)  dir = -1;
-    if (x < -170)     dir =  1;
-    requestAnimationFrame(tick);
-  }
-  avatar.style.position = 'fixed';
-  avatar.style.zIndex   = '999';
-  avatar.style.width    = '140px';
-  avatar.style.transition = 'none';
-  avatar.style.animation  = 'none';
-  requestAnimationFrame(tick);
-})();
-</script>
-  
 
 </body>
 </html>
