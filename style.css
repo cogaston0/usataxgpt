@@ -263,6 +263,33 @@ h1, h2, h3 {
     margin: 30px 0;
 }
 
+/* ===== COLOR UTILITIES ===== */
+
+/* C16 — accent highlight color */
+.C16 {
+    color: #c9a84c;
+}
+
+/* yellow_to_blue — animated background transition from gold to navy */
+@keyframes yellow_to_blue {
+    from { background-color: #f2c94c; }
+    to   { background-color: #294c8e; }
+}
+
+.yellow_to_blue {
+    animation: yellow_to_blue 1s ease forwards;
+}
+
+/* blue_to_yellow — animated background transition from navy to gold */
+@keyframes blue_to_yellow {
+    from { background-color: #294c8e; }
+    to   { background-color: #f2c94c; }
+}
+
+.blue_to_yellow {
+    animation: blue_to_yellow 1s ease forwards;
+}
+
 /* ===== MOBILE NAV ===== */
 .hamburger {
     display: none;
